@@ -1,0 +1,307 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>services and availability</title>
+</head>
+<body>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AppointEase - Business Dashboard</title>
+    <!-- Alpine.js -->
+    <script defer src="https://unpkg.com/alpinejs@3.x.x/dist/cdn.min.js"></script>
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+</head>
+    <body class="bg-gray-50 font-sans antialiased"
+      x-data="{
+          activeTab: 'dashboard',
+          sidebarOpen: false,
+          showAddServiceModal: false,
+          showEditServiceModal: false,
+          serviceToEdit: null,
+          showAddAvailabilityModal: false,
+          services: [
+              { id: 1, name: 'Haircut & Style', duration: 60, price: 65, active: true },
+              { id: 2, name: 'Color Treatment', duration: 120, price: 120, active: true },
+              { id: 3, name: 'Blowout', duration: 45, price: 45, active: true },
+              { id: 4, name: 'Hair Consultation', duration: 30, price: 0, active: false }
+          ],
+          newService: { name: '', duration: 30, price: 0, active: true },
+          availability: [
+              { id: 1, day: 'Monday', start: '09:00', end: '17:00', active: true },
+              { id: 2, day: 'Tuesday', start: '09:00', end: '17:00', active: true },
+              { id: 3, day: 'Wednesday', start: '09:00', end: '17:00', active: true },
+              { id: 4, day: 'Thursday', start: '09:00', end: '17:00', active: true },
+              { id: 5, day: 'Friday', start: '09:00', end: '17:00', active: true },
+              { id: 6, day: 'Saturday', start: '10:00', end: '15:00', active: false },
+              { id: 7, day: 'Sunday', start: '00:00', end: '00:00', active: false }
+          ],
+          newAvailability: { day: 'Monday', start: '09:00', end: '17:00', active: true },
+          daysOfWeek: ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday', 'Sunday'],
+          appointments: [
+              { id: 1, client: 'John Smith', service: 'Haircut & Style', date: '2023-11-22', time: '10:00 AM', status: 'Confirmed' },
+              { id: 2, client: 'Maria Garcia', service: 'Color Treatment', date: '2023-11-22', time: '01:00 PM', status: 'Confirmed' },
+              { id: 3, client: 'Robert Johnson', service: 'Blowout', date: '2023-11-23', time: '11:00 AM', status: 'Pending' },
+              { id: 4, client: 'Susan Miller', service: 'Haircut & Style', date: '2023-11-23', time: '03:00 PM', status: 'Confirmed' },
+              { id: 5, client: 'David Wilson', service: 'Color Treatment', date: '2023-11-24', time: '02:00 PM', status: 'Cancelled' }
+          ],
+          businessHours: [
+              { id: 1, day: 'Monday', hours: '9:00 AM - 5:00 PM' },
+              { id: 2, day: 'Tuesday', hours: '9:00 AM - 5:00 PM' },
+              { id: 3, day: 'Wednesday', hours: '9:00 AM - 5:00 PM' },
+              { id: 4, day: 'Thursday', hours: '9:00 AM - 5:00 PM' },
+              { id: 5, day: 'Friday', hours: '9:00 AM - 5:00 PM' },
+              { id: 6, day: 'Saturday', hours: '10:00 AM - 3:00 PM' },
+              { id: 7, day: 'Sunday', hours: 'Closed' }
+          ],
+          addService() {
+              this.services.push({
+                  id: this.services.length + 1,
+                  name: this.newService.name,
+                  duration: parseInt(this.newService.duration),
+                  price: parseFloat(this.newService.price),
+                  active: this.newService.active
+              });
+              this.newService = { name: '', duration: 30, price: 0, active: true };
+              this.showAddServiceModal = false;
+          },
+          editService(id) {
+              const service = this.services.find(s => s.id === id);
+              this.serviceToEdit = { ...service };
+              this.showEditServiceModal = true;
+          },
+          updateService() {
+              const index = this.services.findIndex(s => s.id === this.serviceToEdit.id);
+              if (index !== -1) {
+                  this.services[index] = { ...this.serviceToEdit };
+              }
+              this.showEditServiceModal = false;
+          },
+          updateAvailability(id) {
+              const index = this.availability.findIndex(a => a.id === id);
+              // Toggle active status
+              if (index !== -1) {
+                  this.availability[index].active = !this.availability[index].active;
+              }
+          },
+          formatTime(time) {
+              if (!time) return '';
+              // Convert 24-hour time string to 12-hour format with AM/PM
+              const [hours, minutes] = time.split(':');
+              const h = parseInt(hours, 10);
+              const period = h >= 12 ? 'PM' : 'AM';
+              const hour = h > 12 ? h - 12 : (h === 0 ? 12 : h);
+              return `${hour}:${minutes} ${period}`;
+          },
+          getAppointmentsToday() {
+              const today = new Date().toISOString().split('T')[0];
+              return this.appointments.filter(a => a.date === today);
+          },
+          getTotalRevenue() {
+              return this.appointments
+                  .filter(a => a.status === 'Confirmed')
+                  .reduce((total, appointment) => {
+                      const service = this.services.find(s => s.name === appointment.service);
+                      return total + (service ? service.price : 0);
+                  }, 0);
+          }
+      }">
+
+<!-- Mobile sidebar backdrop -->
+<div
+        x-show="sidebarOpen"
+        class="fixed inset-0 z-40 bg-gray-600 bg-opacity-75 md:hidden"
+        x-transition:enter="transition-opacity ease-linear duration-300"
+        x-transition:enter-start="opacity-0"
+        x-transition:enter-end="opacity-100"
+        x-transition:leave="transition-opacity ease-linear duration-300"
+        x-transition:leave-start="opacity-100"
+        x-transition:leave-end="opacity-0"
+        @click="sidebarOpen = false">
+</div>
+
+<!-- Sidebar -->
+<div
+        x-show="sidebarOpen"
+        class="fixed inset-y-0 left-0 z-50 flex w-full max-w-xs flex-col bg-white md:hidden"
+        x-transition:enter="transition ease-in-out duration-300 transform"
+        x-transition:enter-start="-translate-x-full"
+        x-transition:enter-end="translate-x-0"
+        x-transition:leave="transition ease-in-out duration-300 transform"
+        x-transition:leave-start="translate-x-0"
+        x-transition:leave-end="-translate-x-full">
+
+    <!-- Sidebar header with close button -->
+    <div class="flex items-center justify-between border-b border-gray-200 bg-white px-4 py-5">
+        <div class="text-xl font-bold text-blue-600">AppointEase</div>
+        <button @click="sidebarOpen = false" class="h-10 w-10 rounded-md -mr-2 flex items-center justify-center text-gray-500 hover:bg-gray-100">
+            <svg class="h-6 w-6" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
+            </svg>
+        </button>
+    </div>
+
+    <!-- Sidebar navigation -->
+    <div class="flex-1 overflow-y-auto px-4 py-3">
+        <nav class="space-y-1">
+            <a @click="activeTab = 'dashboard'; sidebarOpen = false" class="flex cursor-pointer items-center px-2 py-2 text-sm font-medium rounded-md" :class="activeTab === 'dashboard' ? 'bg-blue-100 text-blue-600' : 'text-gray-600 hover:bg-gray-50'">
+                <svg class="mr-3 h-6 w-6" :class="activeTab === 'dashboard' ? 'text-blue-500' : 'text-gray-400'" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6" />
+                </svg>
+                Dashboard
+            </a>
+            <a @click="activeTab = 'appointments'; sidebarOpen = false" class="flex cursor-pointer items-center px-2 py-2 text-sm font-medium rounded-md" :class="activeTab === 'appointments' ? 'bg-blue-100 text-blue-600' : 'text-gray-600 hover:bg-gray-50'">
+                <svg class="mr-3 h-6 w-6" :class="activeTab === 'appointments' ? 'text-blue-500' : 'text-gray-400'" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z" />
+                </svg>
+                Appointments
+            </a>
+            <a @click="activeTab = 'services'; sidebarOpen = false" class="flex cursor-pointer items-center px-2 py-2 text-sm font-medium rounded-md" :class="activeTab === 'services' ? 'bg-blue-100 text-blue-600' : 'text-gray-600 hover:bg-gray-50'">
+                <svg class="mr-3 h-6 w-6" :class="activeTab === 'services' ? 'text-blue-500' : 'text-gray-400'" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2" />
+                </svg>
+                Services
+            </a>
+            <a @click="activeTab = 'availability'; sidebarOpen = false" class="flex cursor-pointer items-center px-2 py-2 text-sm font-medium rounded-md" :class="activeTab === 'availability' ? 'bg-blue-100 text-blue-600' : 'text-gray-600 hover:bg-gray-50'">
+                <svg class="mr-3 h-6 w-6" :class="activeTab === 'availability' ? 'text-blue-500' : 'text-gray-400'" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" />
+                </svg>
+                Availability
+            </a>
+            <a @click="activeTab = 'settings'; sidebarOpen = false" class="flex cursor-pointer items-center px-2 py-2 text-sm font-medium rounded-md" :class="activeTab === 'settings' ? 'bg-blue-100 text-blue-600' : 'text-gray-600 hover:bg-gray-50'">
+                <svg class="mr-3 h-6 w-6" :class="activeTab === 'settings' ? 'text-blue-500' : 'text-gray-400'" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10.325 4.317c.426-1.756 2.924-1.756 3.35 0a1.724 1.724 0 002.573 1.066c1.543-.94 3.31.826 2.37 2.37a1.724 1.724 0 001.065 2.572c1.756.426 1.756 2.924 0 3.35a1.724 1.724 0 00-1.066 2.573c.94 1.543-.826 3.31-2.37 2.37a1.724 1.724 0 00-2.572 1.065c-.426 1.756-2.924 1.756-3.35 0a1.724 1.724 0 00-2.573-1.066c-1.543.94-3.31-.826-2.37-2.37a1.724 1.724 0 00-1.065-2.572c-1.756-.426-1.756-2.924 0-3.35a1.724 1.724 0 001.066-2.573c-.94-1.543.826-3.31 2.37-2.37.996.608 2.296.07 2.572-1.065z" />
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" />
+                </svg>
+                Settings
+            </a>
+        </nav>
+    </div>
+</div>
+
+<!-- Fixed sidebar for desktop -->
+<div class="hidden md:fixed md:inset-y-0 md:flex md:w-64 md:flex-col">
+    <div class="flex flex-grow flex-col overflow-y-auto border-r border-gray-200 bg-white pt-5">
+        <div class="flex flex-shrink-0 items-center px-4">
+            <div class="text-xl font-bold text-blue-600">AppointEase</div>
+        </div>
+        <div class="mt-5 flex flex-grow flex-col">
+            <nav class="flex-1 space-y-1 px-2 pb-4">
+                <a @click="activeTab = 'dashboard'" class="flex cursor-pointer items-center px-2 py-2 text-sm font-medium rounded-md" :class="activeTab === 'dashboard' ? 'bg-blue-100 text-blue-600' : 'text-gray-600 hover:bg-gray-50'">
+                    <svg class="mr-3 h-6 w-6" :class="activeTab === 'dashboard' ? 'text-blue-500' : 'text-gray-400'" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6" />
+                    </svg>
+                    Dashboard
+                </a>
+                <a @click="activeTab = 'appointments'" class="flex cursor-pointer items-center px-2 py-2 text-sm font-medium rounded-md" :class="activeTab === 'appointments' ? 'bg-blue-100 text-blue-600' : 'text-gray-600 hover:bg-gray-50'">
+                    <svg class="mr-3 h-6 w-6" :class="activeTab === 'appointments' ? 'text-blue-500' : 'text-gray-400'" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z" />
+                    </svg>
+                    Appointments
+                </a>
+                <a @click="activeTab = 'services'" class="flex cursor-pointer items-center px-2 py-2 text-sm font-medium rounded-md" :class="activeTab === 'services' ? 'bg-blue-100 text-blue-600' : 'text-gray-600 hover:bg-gray-50'">
+                    <svg class="mr-3 h-6 w-6" :class="activeTab === 'services' ? 'text-blue-500' : 'text-gray-400'" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2" />
+                    </svg>
+                    Services
+                </a>
+                <a @click="activeTab = 'availability'" class="flex cursor-pointer items-center px-2 py-2 text-sm font-medium rounded-md" :class="activeTab === 'availability' ? 'bg-blue-100 text-blue-600' : 'text-gray-600 hover:bg-gray-50'">
+                    <svg class="mr-3 h-6 w-6" :class="activeTab === 'availability' ? 'text-blue-500' : 'text-gray-400'" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" />
+                    </svg>
+                    Availability
+                </a>
+                <a @click="activeTab = 'settings'" class="flex cursor-pointer items-center px-2 py-2 text-sm font-medium rounded-md" :class="activeTab === 'settings' ? 'bg-blue-100 text-blue-600' : 'text-gray-600 hover:bg-gray-50'">
+                    <svg class="mr-3 h-6 w-6" :class="activeTab === 'settings' ? 'text-blue-500' : 'text-gray-400'" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10.325 4.317c.426-1.756 2.924-1.756 3.35 0a1.724 1.724 0 002.573 1.066c1.543-.94 3.31.826 2.37 2.37a1.724 1.724 0 001.065 2.572c1.756.426 1.756 2.924 0 3.35a1.724 1.724 0 00-1.066 2.573c.94 1.543-.826 3.31-2.37 2.37a1.724 1.724 0 00-2.572 1.065c-.426 1.756-2.924 1.756-3.35 0a1.724 1.724 0 00-2.573-1.066c-1.543.94-3.31-.826-2.37-2.37a1.724 1.724 0 00-1.065-2.572c-1.756-.426-1.756-2.924 0-3.35a1.724 1.724 0 001.066-2.573c-.94-1.543.826-3.31 2.37-2.37.996.608 2.296.07 2.572-1.065z" />
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" />
+                    </svg>
+                    Settings
+                </a>
+            </nav>
+        </div>
+    </div>
+</div>
+
+<!-- Main content -->
+<div class="md:pl-64 flex flex-col">
+    <!-- Top navigation -->
+    <div class="sticky top-0 z-10 flex h-16 flex-shrink-0 bg-white shadow">
+        <button @click="sidebarOpen = !sidebarOpen" class="border-r border-gray-200 px-4 text-gray-500 focus:outline-none focus:ring-2 focus:ring-inset focus:ring-blue-500 md:hidden">
+            <svg class="h-6 w-6" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16" />
+            </svg>
+        </button>
+        <div class="flex flex-1 justify-between px-4">
+            <div class="flex flex-1">
+                <h1 class="text-2xl font-semibold text-gray-900 self-center" x-text="
+                        activeTab === 'dashboard' ? 'Dashboard' :
+                        activeTab === 'services' ? 'Manage Services' :
+                        activeTab === 'availability' ? 'Manage Availability' :
+                        activeTab === 'appointments' ? 'Appointments' :
+                        'Settings'
+                    "></h1>
+            </div>
+            <div class="ml-4 flex items-center md:ml-6">
+                <a href="index.html" class="ml-3 inline-flex items-center px-4 py-2 border border-transparent text-sm font-medium rounded-md text-white bg-blue-600 hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500">
+                    Booking Page
+                </a>
+                <button class="ml-3 p-1 rounded-full text-gray-400 hover:text-gray-500 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500">
+                    <svg class="h-6 w-6" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 17h5l-1.405-1.405A2.032 2.032 0 0118 14.158V11a6.002 6.002 0 00-4-5.659V5a2 2 0 10-4 0v.341C7.67 6.165 6 8.388 6 11v3.159c0 .538-.214 1.055-.595 1.436L4 17h5m6 0v1a3 3 0 11-6 0v-1m6 0H9" />
+                    </svg>
+                </button>
+                <div class="ml-3 relative">
+                    <button class="max-w-xs bg-white flex items-center text-sm rounded-full focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500">
+                        <img class="h-8 w-8 rounded-full" src="https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=2&w=256&h=256&q=80" alt="">
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <main class="flex-1">
+        <div class="py-6">
+            <!-- Dashboard Tab -->
+            <div x-show="activeTab === 'dashboard'" class="max-w-7xl mx-auto px-4 sm:px-6 md:px-8">
+                <div class="grid grid-cols-1 gap-5 sm:grid-cols-2 lg:grid-cols-3">
+                    <!-- Stats Card 1: Today's Appointments -->
+                    <div class="bg-white overflow-hidden shadow rounded-lg">
+                        <div class="p-5">
+                            <div class="flex items-center">
+                                <div class="flex-shrink-0 bg-blue-100 rounded-md p-3">
+                                    <svg class="h-6 w-6 text-blue-600" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z" />
+                                    </svg>
+                                </div>
+                                <div class="ml-5 w-0 flex-1">
+                                    <dt class="text-sm font-medium text-gray-500 truncate">Today's Appointments</dt>
+                                    <dd class="flex items-baseline">
+                                        <div class="text-2xl font-semibold text-gray-900" x-text="getAppointmentsToday().length"></div>
+                                    </dd>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="bg-gray-50 px-5 py-3">
+                            <div class="text-sm">
+                                <a @click="activeTab = 'appointments'" class="font-medium text-blue-600 hover:text-blue-500 cursor-pointer">View all</a>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Stats Card 2: Active Services -->
+                    <div class="bg-white overflow-hidden shadow rounded-lg">
+                        <div class="p-5">
+                            <div class="flex items-center">
+                                <div class="flex-shrink-0 bg-green-100 rounded-md p-3">
+                                    <svg class="h-6 w-6 text-green-600" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2" />
+                                    </svg>
+                                </div>
+                                <div class="ml-5 w-0 flex-1">
+    </body>
+</html>

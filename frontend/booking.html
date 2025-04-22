@@ -1,0 +1,436 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Booking</title>
+</head>
+<body>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AppointEase - Book an Appointment</title>
+    <!-- Alpine.js -->
+    <script defer src="https://unpkg.com/alpinejs@3.x.x/dist/cdn.min.js"></script>
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body class="bg-gray-50 text-gray-900 font-sans antialiased">
+<!-- Navigation Bar -->
+<nav class="bg-white shadow-sm">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div class="flex justify-between h-16">
+            <div class="flex">
+                <div class="flex-shrink-0 flex items-center">
+                    <a href="index.html">
+                        <span class="text-blue-600 text-xl font-bold">AppointEase</span>
+                    </a>
+                </div>
+            </div>
+            <div class="hidden sm:ml-6 sm:flex sm:items-center">
+                <a href="business-dashboard.html" class="ml-3 inline-flex items-center px-4 py-2 border border-transparent text-sm font-medium rounded-md text-white bg-blue-600 hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500">
+                    Business Login
+                </a>
+            </div>
+        </div>
+    </div>
+</nav>
+
+<!-- Main Content -->
+<main class="max-w-7xl mx-auto py-6 sm:px-6 lg:px-8">
+    <!-- Booking Steps -->
+    <div class="px-4 sm:px-0"
+         x-data="{
+                 step: 1,
+                 business: null,
+                 service: null,
+                 date: null,
+                 time: null,
+                 firstName: '',
+                 lastName: '',
+                 email: '',
+                 phone: '',
+                 notes: '',
+                 businesses: [
+                     { id: 1, name: 'Hair Studio Deluxe', category: 'Beauty & Wellness' },
+                     { id: 2, name: 'Dental Care Center', category: 'Healthcare' },
+                     { id: 3, name: 'Smith & Associates Law', category: 'Professional Services' },
+                     { id: 4, name: 'Elite Fitness Gym', category: 'Fitness' },
+                     { id: 5, name: 'Tech Support Solutions', category: 'Technology' }
+                 ],
+                 services: [
+                     { id: 1, businessId: 1, name: 'Haircut & Style', duration: '60 min', price: '$65' },
+                     { id: 2, businessId: 1, name: 'Color Treatment', duration: '120 min', price: '$120' },
+                     { id: 3, businessId: 1, name: 'Blowout', duration: '45 min', price: '$45' },
+                     { id: 4, businessId: 2, name: 'Dental Checkup', duration: '30 min', price: '$125' },
+                     { id: 5, businessId: 2, name: 'Teeth Whitening', duration: '60 min', price: '$250' },
+                     { id: 6, businessId: 3, name: 'Legal Consultation', duration: '60 min', price: '$200' },
+                     { id: 7, businessId: 4, name: 'Personal Training', duration: '45 min', price: '$80' },
+                     { id: 8, businessId: 5, name: 'Computer Repair', duration: '90 min', price: '$95' }
+                 ],
+                 availableDates: [
+                     '2023-11-22', '2023-11-23', '2023-11-24', '2023-11-25', '2023-11-26'
+                 ],
+                 availableTimeSlots: [
+                     '09:00 AM', '10:00 AM', '11:00 AM', '01:00 PM', '02:00 PM', '03:00 PM', '04:00 PM'
+                 ],
+                 getBusinessServices() {
+                     return this.services.filter(service => service.businessId === this.business.id);
+                 }
+             }">
+        <!-- Progress Indicator -->
+        <div class="py-4">
+            <div class="flex items-center justify-between mb-4">
+                <div class="w-full flex items-center">
+                    <div class="relative flex items-center justify-center">
+                        <div class="h-10 w-10 rounded-full bg-blue-600 flex items-center justify-center">
+                            <span class="text-white font-medium">1</span>
+                        </div>
+                        <div class="absolute -bottom-6">
+                            <span class="text-xs font-medium" :class="step >= 1 ? 'text-blue-600' : 'text-gray-500'">Select Business</span>
+                        </div>
+                    </div>
+                    <div class="flex-1 h-1 mx-2" :class="step > 1 ? 'bg-blue-600' : 'bg-gray-200'"></div>
+                    <div class="relative flex items-center justify-center">
+                        <div class="h-10 w-10 rounded-full flex items-center justify-center" :class="step >= 2 ? 'bg-blue-600' : 'bg-gray-200'">
+                            <span :class="step >= 2 ? 'text-white' : 'text-gray-500'" class="font-medium">2</span>
+                        </div>
+                        <div class="absolute -bottom-6">
+                            <span class="text-xs font-medium" :class="step >= 2 ? 'text-blue-600' : 'text-gray-500'">Select Service</span>
+                        </div>
+                    </div>
+                    <div class="flex-1 h-1 mx-2" :class="step > 2 ? 'bg-blue-600' : 'bg-gray-200'"></div>
+                    <div class="relative flex items-center justify-center">
+                        <div class="h-10 w-10 rounded-full flex items-center justify-center" :class="step >= 3 ? 'bg-blue-600' : 'bg-gray-200'">
+                            <span :class="step >= 3 ? 'text-white' : 'text-gray-500'" class="font-medium">3</span>
+                        </div>
+                        <div class="absolute -bottom-6">
+                            <span class="text-xs font-medium" :class="step >= 3 ? 'text-blue-600' : 'text-gray-500'">Choose Date/Time</span>
+                        </div>
+                    </div>
+                    <div class="flex-1 h-1 mx-2" :class="step > 3 ? 'bg-blue-600' : 'bg-gray-200'"></div>
+                    <div class="relative flex items-center justify-center">
+                        <div class="h-10 w-10 rounded-full flex items-center justify-center" :class="step >= 4 ? 'bg-blue-600' : 'bg-gray-200'">
+                            <span :class="step >= 4 ? 'text-white' : 'text-gray-500'" class="font-medium">4</span>
+                        </div>
+                        <div class="absolute -bottom-6">
+                            <span class="text-xs font-medium" :class="step >= 4 ? 'text-blue-600' : 'text-gray-500'">Your Details</span>
+                        </div>
+                    </div>
+                    <div class="flex-1 h-1 mx-2" :class="step > 4 ? 'bg-blue-600' : 'bg-gray-200'"></div>
+                    <div class="relative flex items-center justify-center">
+                        <div class="h-10 w-10 rounded-full flex items-center justify-center" :class="step >= 5 ? 'bg-blue-600' : 'bg-gray-200'">
+                            <span :class="step >= 5 ? 'text-white' : 'text-gray-500'" class="font-medium">5</span>
+                        </div>
+                        <div class="absolute -bottom-6">
+                            <span class="text-xs font-medium" :class="step >= 5 ? 'text-blue-600' : 'text-gray-500'">Confirmation</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Step 1: Select Business -->
+        <div class="mt-12" x-show="step === 1">
+            <div class="sm:flex sm:items-center">
+                <div class="sm:flex-auto">
+                    <h2 class="text-2xl font-semibold text-gray-900">Select a Business</h2>
+                    <p class="mt-2 text-sm text-gray-700">Choose the business you'd like to book an appointment with.</p>
+                </div>
+            </div>
+            <div class="mt-8 grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-3">
+                <template x-for="biz in businesses" :key="biz.id">
+                    <div class="bg-white overflow-hidden shadow rounded-lg hover:shadow-md cursor-pointer"
+                         :class="business && business.id === biz.id ? 'ring-2 ring-blue-500' : ''"
+                         @click="business = biz">
+                        <div class="p-6">
+                            <div class="flex items-center">
+                                <div class="flex-shrink-0 bg-blue-100 rounded-md p-3">
+                                    <svg class="h-6 w-6 text-blue-600" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16m14 0h2m-2 0h-5m-9 0H3m2 0h5M9 7h1m-1 4h1m4-4h1m-1 4h1m-5 10v-5a1 1 0 011-1h2a1 1 0 011 1v5m-4 0h4" />
+                                    </svg>
+                                </div>
+                                <div class="ml-4">
+                                    <h3 class="text-lg font-medium text-gray-900" x-text="biz.name"></h3>
+                                    <p class="text-sm text-gray-500" x-text="biz.category"></p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </template>
+            </div>
+            <div class="mt-8 flex justify-end">
+                <button
+                        @click="step = 2"
+                        :disabled="!business"
+                        class="inline-flex items-center px-4 py-2 border border-transparent text-sm font-medium rounded-md shadow-sm text-white bg-blue-600 hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500 disabled:opacity-50 disabled:cursor-not-allowed">
+                    Next: Select Service
+                </button>
+            </div>
+        </div>
+
+        <!-- Step 2: Select Service -->
+        <div class="mt-12" x-show="step === 2">
+            <div class="sm:flex sm:items-center">
+                <div class="sm:flex-auto">
+                    <h2 class="text-2xl font-semibold text-gray-900">Select a Service</h2>
+                    <p class="mt-2 text-sm text-gray-700">Choose the service you'd like to book at <span x-text="business.name" class="font-medium"></span>.</p>
+                </div>
+            </div>
+            <div class="mt-8 grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-3">
+                <template x-for="svc in getBusinessServices()" :key="svc.id">
+                    <div class="bg-white overflow-hidden shadow rounded-lg hover:shadow-md cursor-pointer"
+                         :class="service && service.id === svc.id ? 'ring-2 ring-blue-500' : ''"
+                         @click="service = svc">
+                        <div class="p-6">
+                            <div class="flex flex-col">
+                                <h3 class="text-lg font-medium text-gray-900" x-text="svc.name"></h3>
+                                <div class="mt-2 flex items-center text-sm text-gray-500">
+                                    <svg class="flex-shrink-0 mr-1.5 h-5 w-5 text-gray-400" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor">
+                                        <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm1-12a1 1 0 10-2 0v4a1 1 0 00.293.707l2.828 2.829a1 1 0 101.415-1.415L11 9.586V6z" clip-rule="evenodd" />
+                                    </svg>
+                                    <span x-text="svc.duration"></span>
+                                </div>
+                                <div class="mt-1 flex items-center text-sm text-gray-500">
+                                    <svg class="flex-shrink-0 mr-1.5 h-5 w-5 text-gray-400" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor">
+                                        <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zM8.736 6.979C9.208 6.193 9.696 6 10 6c.304 0 .792.193 1.264.979a1 1 0 001.715-1.029C12.279 4.784 11.232 4 10 4s-2.279.784-2.979 1.95a1 1 0 001.715 1.029zM6 12a2 2 0 114 0 2 2 0 01-4 0zm6 0a2 2 0 114 0 2 2 0 01-4 0z" clip-rule="evenodd" />
+                                    </svg>
+                                    <span x-text="svc.price"></span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </template>
+            </div>
+            <div class="mt-8 flex justify-between">
+                <button
+                        @click="step = 1"
+                        class="inline-flex items-center px-4 py-2 border border-gray-300 shadow-sm text-sm font-medium rounded-md text-gray-700 bg-white hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500">
+                    Back
+                </button>
+                <button
+                        @click="step = 3"
+                        :disabled="!service"
+                        class="inline-flex items-center px-4 py-2 border border-transparent text-sm font-medium rounded-md shadow-sm text-white bg-blue-600 hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500 disabled:opacity-50 disabled:cursor-not-allowed">
+                    Next: Choose Date & Time
+                </button>
+            </div>
+        </div>
+
+        <!-- Step 3: Choose Date and Time -->
+        <div class="mt-12" x-show="step === 3">
+            <div class="sm:flex sm:items-center">
+                <div class="sm:flex-auto">
+                    <h2 class="text-2xl font-semibold text-gray-900">Choose Date & Time</h2>
+                    <p class="mt-2 text-sm text-gray-700">Select an available date and time for your <span x-text="service.name" class="font-medium"></span>.</p>
+                </div>
+            </div>
+
+            <div class="mt-8 grid grid-cols-1 gap-8 md:grid-cols-2">
+                <!-- Date Selection -->
+                <div>
+                    <h3 class="text-lg font-medium text-gray-900 mb-4">Select Date</h3>
+                    <div class="grid grid-cols-1 gap-4 sm:grid-cols-2">
+                        <template x-for="availableDate in availableDates" :key="availableDate">
+                            <div class="relative">
+                                <button
+                                        type="button"
+                                        class="w-full px-4 py-4 border rounded-md shadow-sm text-sm font-medium focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500"
+                                        :class="date === availableDate ? 'bg-blue-50 border-blue-500 text-blue-700' : 'border-gray-300 text-gray-700 hover:bg-gray-50'"
+                                        @click="date = availableDate"
+                                >
+                                    <span x-text="new Date(availableDate).toLocaleDateString('en-US', {weekday: 'short', month: 'short', day: 'numeric'})"></span>
+                                </button>
+                            </div>
+                        </template>
+                    </div>
+                </div>
+
+                <!-- Time Selection -->
+                <div>
+                    <h3 class="text-lg font-medium text-gray-900 mb-4">Select Time</h3>
+                    <div class="grid grid-cols-1 gap-4 sm:grid-cols-2">
+                        <template x-for="timeSlot in availableTimeSlots" :key="timeSlot">
+                            <div class="relative">
+                                <button
+                                        type="button"
+                                        class="w-full px-4 py-4 border rounded-md shadow-sm text-sm font-medium focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500"
+                                        :class="time === timeSlot ? 'bg-blue-50 border-blue-500 text-blue-700' : 'border-gray-300 text-gray-700 hover:bg-gray-50'"
+                                        @click="time = timeSlot"
+                                        :disabled="!date"
+                                >
+                                    <span x-text="timeSlot"></span>
+                                </button>
+                            </div>
+                        </template>
+                    </div>
+                </div>
+            </div>
+
+            <div class="mt-8 flex justify-between">
+                <button
+                        @click="step = 2"
+                        class="inline-flex items-center px-4 py-2 border border-gray-300 shadow-sm text-sm font-medium rounded-md text-gray-700 bg-white hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500">
+                    Back
+                </button>
+                <button
+                        @click="step = 4"
+                        :disabled="!date || !time"
+                        class="inline-flex items-center px-4 py-2 border border-transparent text-sm font-medium rounded-md shadow-sm text-white bg-blue-600 hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500 disabled:opacity-50 disabled:cursor-not-allowed">
+                    Next: Your Details
+                </button>
+            </div>
+        </div>
+
+        <!-- Step 4: Client Details -->
+        <div class="mt-12" x-show="step === 4">
+            <div class="sm:flex sm:items-center">
+                <div class="sm:flex-auto">
+                    <h2 class="text-2xl font-semibold text-gray-900">Your Details</h2>
+                    <p class="mt-2 text-sm text-gray-700">Please provide your contact information to complete the booking.</p>
+                </div>
+            </div>
+
+            <div class="mt-8 max-w-3xl mx-auto">
+                <div class="bg-white shadow overflow-hidden sm:rounded-lg">
+                    <div class="px-4 py-5 sm:p-6">
+                        <div class="grid grid-cols-1 gap-y-6 gap-x-4 sm:grid-cols-6">
+                            <div class="sm:col-span-3">
+                                <label for="firstName" class="block text-sm font-medium text-gray-700">First Name</label>
+                                <div class="mt-1">
+                                    <input type="text" name="firstName" id="firstName" autocomplete="given-name" x-model="firstName" class="shadow-sm focus:ring-blue-500 focus:border-blue-500 block w-full sm:text-sm border-gray-300 rounded-md">
+                                </div>
+                            </div>
+
+                            <div class="sm:col-span-3">
+                                <label for="lastName" class="block text-sm font-medium text-gray-700">Last Name</label>
+                                <div class="mt-1">
+                                    <input type="text" name="lastName" id="lastName" autocomplete="family-name" x-model="lastName" class="shadow-sm focus:ring-blue-500 focus:border-blue-500 block w-full sm:text-sm border-gray-300 rounded-md">
+                                </div>
+                            </div>
+
+                            <div class="sm:col-span-3">
+                                <label for="email" class="block text-sm font-medium text-gray-700">Email Address</label>
+                                <div class="mt-1">
+                                    <input type="email" name="email" id="email" autocomplete="email" x-model="email" class="shadow-sm focus:ring-blue-500 focus:border-blue-500 block w-full sm:text-sm border-gray-300 rounded-md">
+                                </div>
+                            </div>
+
+                            <div class="sm:col-span-3">
+                                <label for="phone" class="block text-sm font-medium text-gray-700">Phone Number</label>
+                                <div class="mt-1">
+                                    <input type="tel" name="phone" id="phone" autocomplete="tel" x-model="phone" class="shadow-sm focus:ring-blue-500 focus:border-blue-500 block w-full sm:text-sm border-gray-300 rounded-md">
+                                </div>
+                            </div>
+
+                            <div class="sm:col-span-6">
+                                <label for="notes" class="block text-sm font-medium text-gray-700">Special Requests or Notes</label>
+                                <div class="mt-1">
+                                    <textarea id="notes" name="notes" rows="3" x-model="notes" class="shadow-sm focus:ring-blue-500 focus:border-blue-500 block w-full sm:text-sm border-gray-300 rounded-md"></textarea>
+                                </div>
+                                <p class="mt-2 text-sm text-gray-500">Add any special requirements or notes for your appointment.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="mt-8 flex justify-between">
+                <button
+                        @click="step = 3"
+                        class="inline-flex items-center px-4 py-2 border border-gray-300 shadow-sm text-sm font-medium rounded-md text-gray-700 bg-white hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500">
+                    Back
+                </button>
+                <button
+                        @click="step = 5"
+                        :disabled="!firstName || !lastName || !email || !phone"
+                        class="inline-flex items-center px-4 py-2 border border-transparent text-sm font-medium rounded-md shadow-sm text-white bg-blue-600 hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500 disabled:opacity-50 disabled:cursor-not-allowed">
+                    Review & Confirm
+                </button>
+            </div>
+        </div>
+
+        <!-- Step 5: Confirmation -->
+        <div class="mt-12" x-show="step === 5">
+            <div class="sm:flex sm:items-center">
+                <div class="sm:flex-auto">
+                    <h2 class="text-2xl font-semibold text-gray-900">Review & Confirm</h2>
+                    <p class="mt-2 text-sm text-gray-700">Please review your appointment details before confirming.</p>
+                </div>
+            </div>
+
+            <div class="mt-8 max-w-3xl mx-auto">
+                <div class="bg-white shadow overflow-hidden sm:rounded-lg">
+                    <div class="px-4 py-5 sm:px-6">
+                        <h3 class="text-lg leading-6 font-medium text-gray-900">Appointment Summary</h3>
+                    </div>
+                    <div class="border-t border-gray-200 px-4 py-5 sm:px-6">
+                        <dl class="grid grid-cols-1 gap-x-4 gap-y-8 sm:grid-cols-2">
+                            <div class="sm:col-span-1">
+                                <dt class="text-sm font-medium text-gray-500">Business</dt>
+                                <dd class="mt-1 text-sm text-gray-900" x-text="business.name"></dd>
+                            </div>
+                            <div class="sm:col-span-1">
+                                <dt class="text-sm font-medium text-gray-500">Service</dt>
+                                <dd class="mt-1 text-sm text-gray-900" x-text="service.name"></dd>
+                            </div>
+                            <div class="sm:col-span-1">
+                                <dt class="text-sm font-medium text-gray-500">Date</dt>
+                                <dd class="mt-1 text-sm text-gray-900" x-text="new Date(date).toLocaleDateString('en-US', {weekday: 'long', year: 'numeric', month: 'long', day: 'numeric'})"></dd>
+                            </div>
+                            <div class="sm:col-span-1">
+                                <dt class="text-sm font-medium text-gray-500">Time</dt>
+                                <dd class="mt-1 text-sm text-gray-900" x-text="time"></dd>
+                            </div>
+                            <div class="sm:col-span-1">
+                                <dt class="text-sm font-medium text-gray-500">Duration</dt>
+                                <dd class="mt-1 text-sm text-gray-900" x-text="service.duration"></dd>
+                            </div>
+                            <div class="sm:col-span-1">
+                                <dt class="text-sm font-medium text-gray-500">Price</dt>
+                                <dd class="mt-1 text-sm text-gray-900" x-text="service.price"></dd>
+                            </div>
+                            <div class="sm:col-span-2">
+                                <dt class="text-sm font-medium text-gray-500">Client</dt>
+                                <dd class="mt-1 text-sm text-gray-900">
+                                    <div x-text="`${firstName} ${lastName}`"></div>
+                                    <div x-text="email"></div>
+                                    <div x-text="phone"></div>
+                                </dd>
+                            </div>
+                            <div class="sm:col-span-2" x-show="notes">
+                                <dt class="text-sm font-medium text-gray-500">Special Notes</dt>
+                                <dd class="mt-1 text-sm text-gray-900" x-text="notes"></dd>
+                            </div>
+                        </dl>
+                    </div>
+                </div>
+
+                <div class="mt-8 bg-white shadow overflow-hidden sm:rounded-lg">
+                    <div class="px-4 py-5 sm:p-6">
+                        <h3 class="text-lg leading-6 font-medium text-gray-900 mb-4">Cancellation Policy</h3>
+                        <p class="text-sm text-gray-500">Please provide at least 24 hours notice if you need to cancel or reschedule your appointment. Late cancellations may be subject to a fee.</p>
+
+                        <div class="mt-5">
+                            <div class="relative flex items-start">
+                                <div class="flex items-center h-5">
+                                    <input id="terms" name="terms" type="checkbox" class="focus:ring-blue-500 h-4 w-4 text-blue-600 border-gray-300 rounded">
+                                </div>
+                                <div class="ml-3 text-sm">
+                                    <label for="terms" class="font-medium text-gray-700">I agree to the cancellation policy and terms of service</label>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="mt-8 flex justify-between">
+                <button
+                        @click="step = 4"
+                        class="inline-flex items-center px-4 py-2 border border-gray-300 shadow-sm text-sm font-medium rounded-md text-gray-700 bg-white hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500">
+                    Back
+                </button>
+</body>
+</html>

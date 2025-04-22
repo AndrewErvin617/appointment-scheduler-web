@@ -1,0 +1,430 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AppointEase - Simple Scheduling for Small Businesses</title>
+    <!-- Alpine.js -->
+    <script defer src="https://unpkg.com/alpinejs@3.x.x/dist/cdn.min.js"></script>
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Custom Tailwind Config -->
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        primary: {
+                            50: '#f0f9ff',
+                            100: '#e0f2fe',
+                            200: '#bae6fd',
+                            300: '#7dd3fc',
+                            400: '#38bdf8',
+                            500: '#0ea5e9',
+                            600: '#0284c7',
+                            700: '#0369a1',
+                            800: '#075985',
+                            900: '#0c4a6e',
+                        },
+                        secondary: {
+                            50: '#f8fafc',
+                            100: '#f1f5f9',
+                            200: '#e2e8f0',
+                            300: '#cbd5e1',
+                            400: '#94a3b8',
+                            500: '#64748b',
+                            600: '#475569',
+                            700: '#334155',
+                            800: '#1e293b',
+                            900: '#0f172a',
+                        }
+                    }
+                }
+            }
+        }
+    </script>
+</head>
+<body class="font-sans antialiased text-secondary-800 bg-gray-50">
+<!-- Navigation -->
+<nav class="bg-white shadow-sm" x-data="{ mobileMenuOpen: false }">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div class="flex justify-between h-16">
+            <div class="flex items-center">
+                <!-- Logo -->
+                <div class="flex-shrink-0 flex items-center">
+                    <span class="text-primary-600 text-xl font-bold">AppointEase</span>
+                </div>
+            </div>
+
+            <!-- Desktop Navigation -->
+            <div class="hidden sm:ml-6 sm:flex sm:items-center">
+                <div class="flex space-x-4">
+                    <a href="#features" class="px-3 py-2 rounded-md text-sm font-medium text-secondary-600 hover:text-primary-600 hover:bg-gray-50">Features</a>
+                    <a href="#how-it-works" class="px-3 py-2 rounded-md text-sm font-medium text-secondary-600 hover:text-primary-600 hover:bg-gray-50">How it Works</a>
+                    <a href="#pricing" class="px-3 py-2 rounded-md text-sm font-medium text-secondary-600 hover:text-primary-600 hover:bg-gray-50">Pricing</a>
+                </div>
+                <div class="ml-6">
+                    <a href="#" class="inline-flex items-center px-4 py-2 border border-transparent text-sm font-medium rounded-md shadow-sm text-white bg-primary-600 hover:bg-primary-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-primary-500">
+                        Sign In
+                    </a>
+                </div>
+            </div>
+
+            <!-- Mobile menu button -->
+            <div class="flex items-center sm:hidden">
+                <button @click="mobileMenuOpen = !mobileMenuOpen" type="button" class="inline-flex items-center justify-center p-2 rounded-md text-secondary-400 hover:text-secondary-500 hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-inset focus:ring-primary-500" aria-controls="mobile-menu" aria-expanded="false">
+                    <span class="sr-only">Open main menu</span>
+                    <!-- Icon when menu is closed -->
+                    <svg x-show="!mobileMenuOpen" class="h-6 w-6" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" aria-hidden="true">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16" />
+                    </svg>
+                    <!-- Icon when menu is open -->
+                    <svg x-show="mobileMenuOpen" class="h-6 w-6" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" aria-hidden="true" style="display: none;">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
+                    </svg>
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Mobile menu, show/hide based on menu state. -->
+    <div class="sm:hidden" id="mobile-menu" x-show="mobileMenuOpen" style="display: none;">
+        <div class="pt-2 pb-3 space-y-1">
+            <a href="#features" class="block px-3 py-2 rounded-md text-base font-medium text-secondary-600 hover:text-primary-600 hover:bg-gray-50">Features</a>
+            <a href="#how-it-works" class="block px-3 py-2 rounded-md text-base font-medium text-secondary-600 hover:text-primary-600 hover:bg-gray-50">How it Works</a>
+            <a href="#pricing" class="block px-3 py-2 rounded-md text-base font-medium text-secondary-600 hover:text-primary-600 hover:bg-gray-50">Pricing</a>
+            <a href="#" class="block px-3 py-2 rounded-md text-base font-medium text-white bg-primary-600 hover:bg-primary-700">Sign In</a>
+        </div>
+    </div>
+</nav>
+
+<!-- Hero Section -->
+<div class="bg-white overflow-hidden">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div class="py-12 md:py-20">
+            <div class="md:flex md:items-center md:space-x-12">
+                <div class="md:w-1/2">
+                    <h1 class="text-4xl font-extrabold tracking-tight text-secondary-900 sm:text-5xl md:text-6xl">
+                        <span class="block">Simple Scheduling</span>
+                        <span class="block text-primary-600">for Small Businesses</span>
+                    </h1>
+                    <p class="mt-6 text-xl text-secondary-500 max-w-3xl">
+                        Take control of your calendar and let clients book appointments with ease. No more phone tag or email chains.
+                    </p>
+                    <div class="mt-8 flex space-x-4">
+                        <a href="#" class="inline-flex items-center px-6 py-3 border border-transparent text-base font-medium rounded-md shadow-sm text-white bg-primary-600 hover:bg-primary-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-primary-500">
+                            Get Started
+                        </a>
+                        <a href="#how-it-works" class="inline-flex items-center px-6 py-3 border border-transparent text-base font-medium rounded-md text-primary-700 bg-primary-100 hover:bg-primary-200 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-primary-500">
+                            Learn More
+                        </a>
+                    </div>
+                </div>
+                <div class="mt-12 md:mt-0 md:w-1/2">
+                    <img class="w-full rounded-lg shadow-xl" src="https://images.unsplash.com/photo-1551434678-e076c223a692?ixlib=rb-1.2.1&auto=format&fit=crop&w=2850&q=80" alt="Calendar appointment interface">
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Features Section -->
+<div id="features" class="py-16 bg-gray-50 overflow-hidden">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div class="text-center">
+            <h2 class="text-base font-semibold text-primary-600 tracking-wide uppercase">Features</h2>
+            <p class="mt-2 text-3xl font-extrabold text-secondary-900 sm:text-4xl">Everything you need to manage appointments</p>
+            <p class="mt-4 max-w-2xl text-xl text-secondary-500 mx-auto">
+                AppointEase provides all the tools you need to streamline your scheduling process.
+            </p>
+        </div>
+
+        <div class="mt-12">
+            <div class="grid grid-cols-1 gap-8 sm:grid-cols-2 lg:grid-cols-3">
+                <!-- Feature 1 -->
+                <div class="pt-6">
+                    <div class="flow-root bg-white rounded-lg px-6 pb-8">
+                        <div class="-mt-6">
+                            <div>
+                                    <span class="inline-flex items-center justify-center p-3 bg-primary-500 rounded-md shadow-lg">
+                                        <svg class="h-6 w-6 text-white" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z" />
+                                        </svg>
+                                    </span>
+                            </div>
+                            <h3 class="mt-8 text-lg font-medium text-secondary-900 tracking-tight">Online Booking</h3>
+                            <p class="mt-5 text-base text-secondary-500">
+                                Allow clients to book appointments 24/7 from any device without requiring them to create an account.
+                            </p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Feature 2 -->
+                <div class="pt-6">
+                    <div class="flow-root bg-white rounded-lg px-6 pb-8">
+                        <div class="-mt-6">
+                            <div>
+                                    <span class="inline-flex items-center justify-center p-3 bg-primary-500 rounded-md shadow-lg">
+                                        <svg class="h-6 w-6 text-white" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 17h5l-1.405-1.405A2.032 2.032 0 0118 14.158V11a6.002 6.002 0 00-4-5.659V5a2 2 0 10-4 0v.341C7.67 6.165 6 8.388 6 11v3.159c0 .538-.214 1.055-.595 1.436L4 17h5m6 0v1a3 3 0 11-6 0v-1m6 0H9" />
+                                        </svg>
+                                    </span>
+                            </div>
+                            <h3 class="mt-8 text-lg font-medium text-secondary-900 tracking-tight">Automated Reminders</h3>
+                            <p class="mt-5 text-base text-secondary-500">
+                                Reduce no-shows with automatic email and SMS reminders before each appointment.
+                            </p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Feature 3 -->
+                <div class="pt-6">
+                    <div class="flow-root bg-white rounded-lg px-6 pb-8">
+                        <div class="-mt-6">
+                            <div>
+                                    <span class="inline-flex items-center justify-center p-3 bg-primary-500 rounded-md shadow-lg">
+                                        <svg class="h-6 w-6 text-white" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2" />
+                                        </svg>
+                                    </span>
+                            </div>
+                            <h3 class="mt-8 text-lg font-medium text-secondary-900 tracking-tight">Calendar Sync</h3>
+                            <p class="mt-5 text-base text-secondary-500">
+                                Sync with Google Calendar, Outlook, and other popular calendar apps to avoid double-bookings.
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- How It Works Section -->
+<div id="how-it-works" class="py-16 bg-white overflow-hidden">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div class="text-center">
+            <h2 class="text-base font-semibold text-primary-600 tracking-wide uppercase">How It Works</h2>
+            <p class="mt-2 text-3xl font-extrabold text-secondary-900 sm:text-4xl">Simple steps to get started</p>
+            <p class="mt-4 max-w-2xl text-xl text-secondary-500 mx-auto">
+                Setting up your appointment system takes just minutes.
+            </p>
+        </div>
+
+        <div class="mt-16">
+            <div class="lg:grid lg:grid-cols-3 lg:gap-8">
+                <!-- Step 1 -->
+                <div class="relative">
+                    <div class="flex items-center justify-center h-12 w-12 rounded-md bg-primary-500 text-white mb-5">
+                        <span class="text-lg font-bold">1</span>
+                    </div>
+                    <h3 class="text-xl font-medium text-secondary-900">Create your schedule</h3>
+                    <p class="mt-2 text-base text-secondary-500">
+                        Set your availability, services, and pricing. Define your working hours and break times.
+                    </p>
+                </div>
+
+                <!-- Step 2 -->
+                <div class="relative mt-10 lg:mt-0">
+                    <div class="flex items-center justify-center h-12 w-12 rounded-md bg-primary-500 text-white mb-5">
+                        <span class="text-lg font-bold">2</span>
+                    </div>
+                    <h3 class="text-xl font-medium text-secondary-900">Share your booking link</h3>
+                    <p class="mt-2 text-base text-secondary-500">
+                        Add your booking link to your website, social media profiles, or share directly with clients.
+                    </p>
+                </div>
+
+                <!-- Step 3 -->
+                <div class="relative mt-10 lg:mt-0">
+                    <div class="flex items-center justify-center h-12 w-12 rounded-md bg-primary-500 text-white mb-5">
+                        <span class="text-lg font-bold">3</span>
+                    </div>
+                    <h3 class="text-xl font-medium text-secondary-900">Clients book appointments</h3>
+                    <p class="mt-2 text-base text-secondary-500">
+                        Clients select a service, choose an available time slot, and receive confirmation emails.
+                    </p>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Pricing Section -->
+<div id="pricing" class="py-16 bg-gray-50 overflow-hidden">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div class="text-center">
+            <h2 class="text-base font-semibold text-primary-600 tracking-wide uppercase">Pricing</h2>
+            <p class="mt-2 text-3xl font-extrabold text-secondary-900 sm:text-4xl">Plans for businesses of all sizes</p>
+            <p class="mt-4 max-w-2xl text-xl text-secondary-500 mx-auto">
+                Choose the perfect plan for your scheduling needs.
+            </p>
+        </div>
+
+        <div class="mt-16 space-y-12 lg:space-y-0 lg:grid lg:grid-cols-3 lg:gap-x-8">
+            <!-- Free Plan -->
+            <div class="relative p-8 bg-white border border-gray-200 rounded-2xl shadow-sm flex flex-col">
+                <div class="flex-1">
+                    <h3 class="text-xl font-semibold text-secondary-900">Free</h3>
+                    <p class="mt-4 flex items-baseline text-secondary-900">
+                        <span class="text-5xl font-extrabold tracking-tight">$0</span>
+                        <span class="ml-1 text-xl font-semibold">/month</span>
+                    </p>
+                    <p class="mt-6 text-gray-500">Perfect for individuals just getting started.</p>
+
+                    <!-- Feature List -->
+                    <ul class="mt-6 space-y-6">
+                        <li class="flex">
+                            <svg class="flex-shrink-0 w-6 h-6 text-green-500" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7" />
+                            </svg>
+                            <span class="ml-3 text-secondary-500">Up to 10 appointments/month</span>
+                        </li>
+                        <li class="flex">
+                            <svg class="flex-shrink-0 w-6 h-6 text-green-500" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7" />
+                            </svg>
+                            <span class="ml-3 text-secondary-500">Email reminders</span>
+                        </li>
+                        <li class="flex">
+                            <svg class="flex-shrink-0 w-6 h-6 text-green-500" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7" />
+                            </svg>
+                            <span class="ml-3 text-secondary-500">Basic scheduling page</span>
+                        </li>
+                    </ul>
+                </div>
+
+                <a href="#" class="mt-8 block w-full bg-primary-50 border border-primary-200 rounded-md py-2 text-sm font-semibold text-primary-700 text-center hover:bg-primary-100">Sign up for free</a>
+            </div>
+
+            <!-- Professional Plan -->
+            <div class="relative p-8 bg-white border border-gray-200 rounded-2xl shadow-sm flex flex-col">
+                <div class="absolute top-0 inset-x-0 transform translate-y-px">
+                    <div class="flex justify-center transform -translate-y-1/2">
+                        <span class="inline-flex rounded-full bg-primary-600 px-4 py-1 text-sm font-semibold tracking-wider uppercase text-white">Most Popular</span>
+                    </div>
+                </div>
+                <div class="flex-1">
+                    <h3 class="text-xl font-semibold text-secondary-900">Professional</h3>
+                    <p class="mt-4 flex items-baseline text-secondary-900">
+                        <span class="text-5xl font-extrabold tracking-tight">$29</span>
+                        <span class="ml-1 text-xl font-semibold">/month</span>
+                    </p>
+                    <p class="mt-6 text-gray-500">Perfect for small businesses and professionals.</p>
+
+                    <!-- Feature List -->
+                    <ul class="mt-6 space-y-6">
+                        <li class="flex">
+                            <svg class="flex-shrink-0 w-6 h-6 text-green-500" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7" />
+                            </svg>
+                            <span class="ml-3 text-secondary-500">Unlimited appointments</span>
+                        </li>
+                        <li class="flex">
+                            <svg class="flex-shrink-0 w-6 h-6 text-green-500" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7" />
+                            </svg>
+                            <span class="ml-3 text-secondary-500">Email & SMS reminders</span>
+                        </li>
+                        <li class="flex">
+                            <svg class="flex-shrink-0 w-6 h-6 text-green-500" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7" />
+                            </svg>
+                            <span class="ml-3 text-secondary-500">Custom branding</span>
+                        </li>
+                        <li class="flex">
+                            <svg class="flex-shrink-0 w-6 h-6 text-green-500" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7" />
+                            </svg>
+                            <span class="ml-3 text-secondary-500">Calendar integrations</span>
+                        </li>
+                    </ul>
+                </div>
+
+                <a href="#" class="mt-8 block w-full bg-primary-600 border border-transparent rounded-md py-2 text-sm font-semibold text-white text-center hover:bg-primary-700">Get started</a>
+            </div>
+
+            <!-- Business Plan -->
+            <div class="relative p-8 bg-white border border-gray-200 rounded-2xl shadow-sm flex flex-col">
+                <div class="flex-1">
+                    <h3 class="text-xl font-semibold text-secondary-900">Business</h3>
+                    <p class="mt-4 flex items-baseline text-secondary-900">
+                        <span class="text-5xl font-extrabold tracking-tight">$79</span>
+                        <span class="ml-1 text-xl font-semibold">/month</span>
+                    </p>
+                    <p class="mt-6 text-gray-500">For growing businesses with multiple staff members.</p>
+
+                    <!-- Feature List -->
+                    <ul class="mt-6 space-y-6">
+                        <li class="flex">
+                            <svg class="flex-shrink-0 w-6 h-6 text-green-500" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7" />
+                            </svg>
+                            <span class="ml-3 text-secondary-500">Everything in Professional</span>
+                        </li>
+                        <li class="flex">
+                            <svg class="flex-shrink-0 w-6 h-6 text-green-500" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7" />
+                            </svg>
+                            <span class="ml-3 text-secondary-500">Multiple staff accounts (up to 10)</span>
+                        </li>
+                        <li class="flex">
+                            <svg class="flex-shrink-0 w-6 h-6 text-green-500" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7" />
+                            </svg>
+                            <span class="ml-3 text-secondary-500">Advanced reporting</span>
+                        </li>
+                        <li class="flex">
+                            <svg class="flex-shrink-0 w-6 h-6 text-green-500" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7" />
+                            </svg>
+                            <span class="ml-3 text-secondary-500">API access</span>
+                        </li>
+                    </ul>
+                </div>
+
+                <a href="#" class="mt-8 block w-full bg-primary-50 border border-primary-200 rounded-md py-2 text-sm font-semibold text-primary-700 text-center hover:bg-primary-100">Contact sales</a>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- CTA Section -->
+<div class="bg-primary-700">
+    <div class="max-w-7xl mx-auto py-12 px-4 sm:px-6 lg:py-16 lg:px-8 lg:flex lg:items-center lg:justify-between">
+        <h2 class="text-3xl font-extrabold tracking-tight text-white sm:text-4xl">
+            <span class="block">Ready to get started?</span>
+            <span class="block text-primary-200">Set up your scheduling system today.</span>
+        </h2>
+        <div class="mt-8 flex lg:mt-0 lg:flex-shrink-0">
+            <div class="inline-flex rounded-md shadow">
+                <a href="#" class="inline-flex items-center justify-center px-5 py-3 border border-transparent text-base font-medium rounded-md text-primary-600 bg-white hover:bg-primary-50">
+                    Get started
+                </a>
+            </div>
+            <div class="ml-3 inline-flex rounded-md shadow">
+                <a href="#" class="inline-flex items-center justify-center px-5 py-3 border border-transparent text-base font-medium rounded-md text-white bg-primary-600 hover:bg-primary-500">
+                    Learn more
+                </a>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Footer -->
+<footer class="bg-white">
+    <div class="max-w-7xl mx-auto py-12 px-4 overflow-hidden sm:px-6 lg:px-8">
+        <nav class="-mx-5 -my-2 flex flex-wrap justify-center" aria-label="Footer">
+            <div class="px-5 py-2">
+                <a href="#" class="text-base text-secondary-500 hover:text-secondary-900">About</a>
+            </div>
+            <div class="px-5 py-2">
+                <a href="#" class="text-base text-secondary-500 hover:text-secondary-900">Features</a>
+            </div>
+            <div class="px-5 py-2">
+                <a href="#" class="text-base text-secondary-500 hover:text-secondary-900">Pricing</a>
+            </div>
+            <div
