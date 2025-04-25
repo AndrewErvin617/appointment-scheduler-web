@@ -9,5 +9,19 @@
   },
   "keywords": [],
   "author": "",
-  "license": "ISC"
+  "license": "ISC",
+  "dependencies": {
+    "live-server": "^1.2.2"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/drewmoney2/appointment-scheduler-web.git"
+  },
+  "bugs": {
+    "url": "https://github.com/drewmoney2/appointment-scheduler-web/issues"
+  },
+  "homepage": "https://github.com/drewmoney2/appointment-scheduler-web#readme",
+  "devDependencies": {
+    "liveserver": "^0.1.20"
+  }
 }
