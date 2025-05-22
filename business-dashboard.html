@@ -2,434 +2,674 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>business dashboard</title>
-</head>
-<body>
-<!DOCTYPE html>
-<html lang="en">
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>AppointEase - Business Dashboard</title>
-  <!-- Alpine.js -->
-  <script defer src="https://unpkg.com/alpinejs@3.x.x/dist/cdn.min.js"></script>
-  <!-- Tailwind CSS -->
-  <script src="https://cdn.tailwindcss.com"></script>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AppointEase - Business Dashboard</title>
+    <!-- Alpine.js -->
+    <script defer src="https://unpkg.com/alpinejs@3.x.x/dist/cdn.min.js"></script>
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
 </head>
 <body class="bg-gray-50 text-gray-900 font-sans antialiased">
 <!-- Navigation Bar -->
 <nav class="bg-white shadow-sm">
-  <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-    <div class="flex justify-between h-16">
-      <div class="flex">
-        <div class="flex-shrink-0 flex items-center">
-          <span class="text-blue-600 text-xl font-bold">AppointEase</span>
-        </div>
-        <div class="hidden sm:ml-6 sm:flex sm:space-x-8">
-          <a href="#" class="border-blue-500 text-gray-900 inline-flex items-center px-1 pt-1 border-b-2 text-sm font-medium">
-            Dashboard
-          </a>
-          <a href="#" class="border-transparent text-gray-500 hover:border-gray-300 hover:text-gray-700 inline-flex items-center px-1 pt-1 border-b-2 text-sm font-medium">
-            Calendar
-          </a>
-          <a href="#" class="border-transparent text-gray-500 hover:border-gray-300 hover:text-gray-700 inline-flex items-center px-1 pt-1 border-b-2 text-sm font-medium">
-            Clients
-          </a>
-          <a href="#" class="border-transparent text-gray-500 hover:border-gray-300 hover:text-gray-700 inline-flex items-center px-1 pt-1 border-b-2 text-sm font-medium">
-            Settings
-          </a>
-        </div>
-      </div>
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div class="flex justify-between h-16">
+            <div class="flex">
+                <div class="flex-shrink-0 flex items-center">
+                    <span class="text-blue-600 text-xl font-bold">AppointEase</span>
+                </div>
+                <div class="hidden sm:ml-6 sm:flex sm:space-x-8">
+                    <a href="#"
+                       class="border-blue-500 text-gray-900 inline-flex items-center px-1 pt-1 border-b-2 text-sm font-medium">
+                        Dashboard
+                    </a>
+                    <a href="#"
+                       class="border-transparent text-gray-500 hover:border-gray-300 hover:text-gray-700 inline-flex items-center px-1 pt-1 border-b-2 text-sm font-medium">
+                        Calendar
+                    </a>
+                    <a href="#"
+                       class="border-transparent text-gray-500 hover:border-gray-300 hover:text-gray-700 inline-flex items-center px-1 pt-1 border-b-2 text-sm font-medium">
+                        Clients
+                    </a>
+                    <a href="#"
+                       class="border-transparent text-gray-500 hover:border-gray-300 hover:text-gray-700 inline-flex items-center px-1 pt-1 border-b-2 text-sm font-medium">
+                        Settings
+                    </a>
+                </div>
+            </div>
 
-      <!-- User Profile -->
-      <div class="hidden sm:ml-6 sm:flex sm:items-center">
-        <div class="ml-3 relative" x-data="{ open: false }">
-          <div>
-            <button @click="open = !open" class="flex text-sm rounded-full focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500" id="user-menu" aria-expanded="false" aria-haspopup="true">
-              <span class="sr-only">Open user menu</span>
-              <div class="h-8 w-8 rounded-full bg-blue-100 flex items-center justify-center text-blue-800 font-bold">
-                JD
-              </div>
-            </button>
-          </div>
-          <div x-show="open"
-               @click.away="open = false"
-               class="origin-top-right absolute right-0 mt-2 w-48 rounded-md shadow-lg py-1 bg-white ring-1 ring-black ring-opacity-5 focus:outline-none"
-               role="menu"
-               aria-orientation="vertical"
-               aria-labelledby="user-menu">
-            <a href="#" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100" role="menuitem">Your Profile</a>
-            <a href="#" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100" role="menuitem">Settings</a>
-            <a href="#" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100" role="menuitem">Sign out</a>
-          </div>
-        </div>
-      </div>
+            <!-- User Profile -->
+            <div class="hidden sm:ml-6 sm:flex sm:items-center">
+                <div class="ml-3 relative" x-data="{ open: false }">
+                    <div>
+                        <button @click="open = !open"
+                                class="flex text-sm rounded-full focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500"
+                                id="user-menu" aria-expanded="false" aria-haspopup="true">
+                            <span class="sr-only">Open user menu</span>
+                            <div class="h-8 w-8 rounded-full bg-blue-100 flex items-center justify-center text-blue-800 font-bold">
+                                JD
+                            </div>
+                        </button>
+                    </div>
+                    <div x-show="open"
+                         @click.away="open = false"
+                         class="origin-top-right absolute right-0 mt-2 w-48 rounded-md shadow-lg py-1 bg-white ring-1 ring-black ring-opacity-5 focus:outline-none"
+                         role="menu"
+                         aria-orientation="vertical"
+                         aria-labelledby="user-menu">
+                        <a href="#" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100" role="menuitem">Your
+                            Profile</a>
+                        <a href="#" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100" role="menuitem">Settings</a>
+                        <a href="#" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100" role="menuitem">Sign
+                            out</a>
+                    </div>
+                </div>
+            </div>
 
-      <!-- Mobile menu button -->
-      <div class="flex items-center sm:hidden">
-        <button type="button" class="inline-flex items-center justify-center p-2 rounded-md text-gray-400 hover:text-gray-500 hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-inset focus:ring-blue-500" aria-expanded="false">
-          <span class="sr-only">Open main menu</span>
-          <svg class="block h-6 w-6" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" aria-hidden="true">
-            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16" />
-          </svg>
-        </button>
-      </div>
+            <!-- Mobile menu button -->
+            <div class="flex items-center sm:hidden">
+                <button type="button"
+                        class="inline-flex items-center justify-center p-2 rounded-md text-gray-400 hover:text-gray-500 hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-inset focus:ring-blue-500"
+                        aria-expanded="false">
+                    <span class="sr-only">Open main menu</span>
+                    <svg class="block h-6 w-6" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
+                         stroke="currentColor" aria-hidden="true">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                              d="M4 6h16M4 12h16M4 18h16"/>
+                    </svg>
+                </button>
+            </div>
+        </div>
     </div>
-  </div>
 </nav>
 
 <!-- Main Content -->
 <main class="max-w-7xl mx-auto py-6 sm:px-6 lg:px-8">
-  <!-- Dashboard Header -->
-  <div class="px-4 py-6 sm:px-0">
-    <h1 class="text-2xl font-semibold text-gray-900">Business Dashboard</h1>
-    <p class="mt-1 text-sm text-gray-600">Welcome back! Here's an overview of your upcoming appointments and business activity.</p>
-  </div>
-
-  <!-- Stats Section -->
-  <div class="mt-6 px-4 sm:px-0" x-data="dashboardStats()">
-    <div class="grid grid-cols-1 gap-5 sm:grid-cols-2 lg:grid-cols-4">
-      <!-- Stat Card 1 -->
-      <div class="bg-white overflow-hidden shadow rounded-lg">
-        <div class="px-4 py-5 sm:p-6">
-          <div class="flex items-center">
-            <div class="flex-shrink-0 bg-blue-100 rounded-md p-3">
-              <svg class="h-6 w-6 text-blue-600" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z" />
-              </svg>
-            </div>
-            <div class="ml-5 w-0 flex-1">
-              <dl>
-                <dt class="text-sm font-medium text-gray-500 truncate">Total Appointments</dt>
-                <dd class="flex items-baseline">
-                  <div class="text-2xl font-semibold text-gray-900" x-text="totalAppointments"></div>
-                </dd>
-              </dl>
-            </div>
-          </div>
-        </div>
-      </div>
-
-      <!-- Stat Card 2 -->
-      <div class="bg-white overflow-hidden shadow rounded-lg">
-        <div class="px-4 py-5 sm:p-6">
-          <div class="flex items-center">
-            <div class="flex-shrink-0 bg-green-100 rounded-md p-3">
-              <svg class="h-6 w-6 text-green-600" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" />
-              </svg>
-            </div>
-            <div class="ml-5 w-0 flex-1">
-              <dl>
-                <dt class="text-sm font-medium text-gray-500 truncate">Upcoming Today</dt>
-                <dd class="flex items-baseline">
-                  <div class="text-2xl font-semibold text-gray-900" x-text="todayAppointments"></div>
-                </dd>
-              </dl>
-            </div>
-          </div>
-        </div>
-      </div>
-
-      <!-- Stat Card 3 -->
-      <div class="bg-white overflow-hidden shadow rounded-lg">
-        <div class="px-4 py-5 sm:p-6">
-          <div class="flex items-center">
-            <div class="flex-shrink-0 bg-indigo-100 rounded-md p-3">
-              <svg class="h-6 w-6 text-indigo-600" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0zm6 3a2 2 0 11-4 0 2 2 0 014 0zM7 10a2 2 0 11-4 0 2 2 0 014 0z" />
-              </svg>
-            </div>
-            <div class="ml-5 w-0 flex-1">
-              <dl>
-                <dt class="text-sm font-medium text-gray-500 truncate">Total Clients</dt>
-                <dd class="flex items-baseline">
-                  <div class="text-2xl font-semibold text-gray-900" x-text="uniqueClients"></div>
-                </dd>
-              </dl>
-            </div>
-          </div>
-        </div>
-      </div>
-
-      <!-- Stat Card 4 -->
-      <div class="bg-white overflow-hidden shadow rounded-lg">
-        <div class="px-4 py-5 sm:p-6">
-          <div class="flex items-center">
-            <div class="flex-shrink-0 bg-yellow-100 rounded-md p-3">
-              <svg class="h-6 w-6 text-yellow-600" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z" />
-              </svg>
-            </div>
-            <div class="ml-5 w-0 flex-1">
-              <dl>
-                <dt class="text-sm font-medium text-gray-500 truncate">Monthly Revenue</dt>
-                <dd class="flex items-baseline">
-                  <div class="text-2xl font-semibold text-gray-900" x-text="'$' + totalRevenue"></div>
-                </dd>
-              </dl>
-            </div>
-          </div>
-        </div>
-      </div>
+    <!-- Dashboard Header -->
+    <div class="px-4 py-6 sm:px-0">
+        <h1 class="text-2xl font-semibold text-gray-900">Business Dashboard</h1>
+        <p class="mt-1 text-sm text-gray-600">Welcome back! Here's an overview of your upcoming appointments and
+            business activity.</p>
     </div>
-  </div>
 
-  <!-- Upcoming Appointments Section -->
-  <div class="mt-10 px-4 sm:px-0" x-data="appointmentsData()">
-    <div class="sm:flex sm:items-center">
-      <div class="sm:flex-auto">
-        <h2 class="text-xl font-semibold text-gray-900">Upcoming Appointments</h2>
-        <p class="mt-2 text-sm text-gray-700">A list of all upcoming appointments for the next few days.</p>
-      </div>
-      <div class="mt-4 sm:mt-0 sm:ml-16 sm:flex-none">
-        <button type="button" class="inline-flex items-center justify-center rounded-md border border-transparent bg-blue-600 px-4 py-2 text-sm font-medium text-white shadow-sm hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 sm:w-auto">
-          Add Appointment
-        </button>
-      </div>
+    <!-- Stats Section -->
+    <div class="mt-6 px-4 sm:px-0" x-data="dashboardStats()">
+        <div class="grid grid-cols-1 gap-5 sm:grid-cols-2 lg:grid-cols-4">
+            <!-- Stat Card 1 -->
+            <div class="bg-white overflow-hidden shadow rounded-lg">
+                <div class="px-4 py-5 sm:p-6">
+                    <div class="flex items-center">
+                        <div class="flex-shrink-0 bg-blue-100 rounded-md p-3">
+                            <svg class="h-6 w-6 text-blue-600" xmlns="http://www.w3.org/2000/svg" fill="none"
+                                 viewBox="0 0 24 24" stroke="currentColor">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                      d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"/>
+                            </svg>
+                        </div>
+                        <div class="ml-5 w-0 flex-1">
+                            <dl>
+                                <dt class="text-sm font-medium text-gray-500 truncate">Total Appointments</dt>
+                                <dd class="flex items-baseline">
+                                    <div class="text-2xl font-semibold text-gray-900" x-text="totalAppointments"></div>
+                                </dd>
+                            </dl>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Stat Card 2 -->
+            <div class="bg-white overflow-hidden shadow rounded-lg">
+                <div class="px-4 py-5 sm:p-6">
+                    <div class="flex items-center">
+                        <div class="flex-shrink-0 bg-green-100 rounded-md p-3">
+                            <svg class="h-6 w-6 text-green-600" xmlns="http://www.w3.org/2000/svg" fill="none"
+                                 viewBox="0 0 24 24" stroke="currentColor">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                      d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"/>
+                            </svg>
+                        </div>
+                        <div class="ml-5 w-0 flex-1">
+                            <dl>
+                                <dt class="text-sm font-medium text-gray-500 truncate">Upcoming Today</dt>
+                                <dd class="flex items-baseline">
+                                    <div class="text-2xl font-semibold text-gray-900" x-text="todayAppointments"></div>
+                                </dd>
+                            </dl>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Stat Card 3 -->
+            <div class="bg-white overflow-hidden shadow rounded-lg">
+                <div class="px-4 py-5 sm:p-6">
+                    <div class="flex items-center">
+                        <div class="flex-shrink-0 bg-indigo-100 rounded-md p-3">
+                            <svg class="h-6 w-6 text-indigo-600" xmlns="http://www.w3.org/2000/svg" fill="none"
+                                 viewBox="0 0 24 24" stroke="currentColor">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                      d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0zm6 3a2 2 0 11-4 0 2 2 0 014 0zM7 10a2 2 0 11-4 0 2 2 0 014 0z"/>
+                            </svg>
+                        </div>
+                        <div class="ml-5 w-0 flex-1">
+                            <dl>
+                                <dt class="text-sm font-medium text-gray-500 truncate">Total Clients</dt>
+                                <dd class="flex items-baseline">
+                                    <div class="text-2xl font-semibold text-gray-900" x-text="uniqueClients"></div>
+                                </dd>
+                            </dl>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Stat Card 4 -->
+            <div class="bg-white overflow-hidden shadow rounded-lg">
+                <div class="px-4 py-5 sm:p-6">
+                    <div class="flex items-center">
+                        <div class="flex-shrink-0 bg-yellow-100 rounded-md p-3">
+                            <svg class="h-6 w-6 text-yellow-600" xmlns="http://www.w3.org/2000/svg" fill="none"
+                                 viewBox="0 0 24 24" stroke="currentColor">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                      d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z"/>
+                            </svg>
+                        </div>
+                        <div class="ml-5 w-0 flex-1">
+                            <dl>
+                                <dt class="text-sm font-medium text-gray-500 truncate">Monthly Revenue</dt>
+                                <dd class="flex items-baseline">
+                                    <div class="text-2xl font-semibold text-gray-900" x-text="'$' + totalRevenue"></div>
+                                </dd>
+                            </dl>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
     </div>
-    <div class="mt-6 flex flex-col">
-      <div class="-my-2 -mx-4 overflow-x-auto sm:-mx-6 lg:-mx-8">
-        <div class="inline-block min-w-full py-2 align-middle md:px-6 lg:px-8">
-          <div class="overflow-hidden shadow ring-1 ring-black ring-opacity-5 md:rounded-lg">
-            <div x-show="loading" class="p-4 text-center">
-              <p class="text-gray-600">Loading appointments...</p>
+
+    <!-- Upcoming Appointments Section -->
+    <div class="mt-10 px-4 sm:px-0" x-data="appointmentsData()">
+        <div class="sm:flex sm:items-center">
+            <div class="sm:flex-auto">
+                <h2 class="text-xl font-semibold text-gray-900">Upcoming Appointments</h2>
+                <p class="mt-2 text-sm text-gray-700">A list of all upcoming appointments for the next few days.</p>
             </div>
-            <div x-show="error" class="p-4 text-center">
-              <p class="text-red-600" x-text="error"></p>
+            <div class="mt-4 sm:mt-0 sm:ml-16 sm:flex-none">
+                <button type="button"
+                        class="inline-flex items-center justify-center rounded-md border border-transparent bg-blue-600 px-4 py-2 text-sm font-medium text-white shadow-sm hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 sm:w-auto"
+                        @click="$dispatch('open-appointment-modal')">
+                    Add Appointment
+                </button>
             </div>
-            <table class="min-w-full divide-y divide-gray-300" x-show="!loading && !error">
-              <thead class="bg-gray-50">
-              <tr>
-                <th scope="col" class="py-3.5 pl-4 pr-3 text-left text-sm font-semibold text-gray-900 sm:pl-6">Date</th>
-                <th scope="col" class="px-3 py-3.5 text-left text-sm font-semibold text-gray-900">Time</th>
-                <th scope="col" class="px-3 py-3.5 text-left text-sm font-semibold text-gray-900">Client</th>
-                <th scope="col" class="px-3 py-3.5 text-left text-sm font-semibold text-gray-900">Service</th>
-                <th scope="col" class="px-3 py-3.5 text-left text-sm font-semibold text-gray-900">Status</th>
-                <th scope="col" class="relative py-3.5 pl-3 pr-4 sm:pr-6">
-                  <span class="sr-only">Actions</span>
-                </th>
-              </tr>
-              </thead>
-              <tbody class="divide-y divide-gray-200 bg-white">
-              <template x-for="appointment in appointments" :key="appointment.appointment_id">
-                <tr>
-                  <td class="whitespace-nowrap py-4 pl-4 pr-3 text-sm font-medium text-gray-900 sm:pl-6" x-text="formatDate(appointment.start_time)"></td>
-                  <td class="whitespace-nowrap px-3 py-4 text-sm text-gray-500" x-text="formatTime(appointment.start_time)"></td>
-                  <td class="whitespace-nowrap px-3 py-4 text-sm text-gray-500" x-text="getClientName(appointment)"></td>
-                  <td class="whitespace-nowrap px-3 py-4 text-sm text-gray-500" x-text="appointment.services?.name || 'N/A'"></td>
-                  <td class="whitespace-nowrap px-3 py-4 text-sm">
+        </div>
+        <div class="mt-6 flex flex-col">
+            <div class="-my-2 -mx-4 overflow-x-auto sm:-mx-6 lg:-mx-8">
+                <div class="inline-block min-w-full py-2 align-middle md:px-6 lg:px-8">
+                    <div class="overflow-hidden shadow ring-1 ring-black ring-opacity-5 md:rounded-lg">
+                        <div x-show="loading" class="p-4 text-center">
+                            <p class="text-gray-600">Loading appointments...</p>
+                        </div>
+                        <div x-show="error" class="p-4 text-center">
+                            <p class="text-red-600" x-text="error"></p>
+                        </div>
+                        <table class="min-w-full divide-y divide-gray-300" x-show="!loading && !error">
+                            <thead class="bg-gray-50">
+                            <tr>
+                                <th scope="col"
+                                    class="py-3.5 pl-4 pr-3 text-left text-sm font-semibold text-gray-900 sm:pl-6">Date
+                                </th>
+                                <th scope="col" class="px-3 py-3.5 text-left text-sm font-semibold text-gray-900">Time
+                                </th>
+                                <th scope="col" class="px-3 py-3.5 text-left text-sm font-semibold text-gray-900">
+                                    Client
+                                </th>
+                                <th scope="col" class="px-3 py-3.5 text-left text-sm font-semibold text-gray-900">
+                                    Service
+                                </th>
+                                <th scope="col" class="px-3 py-3.5 text-left text-sm font-semibold text-gray-900">
+                                    Status
+                                </th>
+                                <th scope="col" class="relative py-3.5 pl-3 pr-4 sm:pr-6">
+                                    <span class="sr-only">Actions</span>
+                                </th>
+                            </tr>
+                            </thead>
+                            <tbody class="divide-y divide-gray-200 bg-white">
+                            <template x-for="appointment in appointments" :key="appointment.appointment_id">
+                                <tr>
+                                    <td class="whitespace-nowrap py-4 pl-4 pr-3 text-sm font-medium text-gray-900 sm:pl-6"
+                                        x-text="formatDate(appointment.start_time)"></td>
+                                    <td class="whitespace-nowrap px-3 py-4 text-sm text-gray-500"
+                                        x-text="formatTime(appointment.start_time)"></td>
+                                    <td class="whitespace-nowrap px-3 py-4 text-sm text-gray-500"
+                                        x-text="getClientName(appointment)"></td>
+                                    <td class="whitespace-nowrap px-3 py-4 text-sm text-gray-500"
+                                        x-text="appointment.services?.name || 'N/A'"></td>
+                                    <td class="whitespace-nowrap px-3 py-4 text-sm">
                     <span class="inline-flex rounded-full px-2 text-xs font-semibold leading-5"
                           :class="getStatusClass(appointment.status)"
                           x-text="capitalizeFirstLetter(appointment.status)"></span>
-                  </td>
-                  <td class="relative whitespace-nowrap py-4 pl-3 pr-4 text-right text-sm font-medium sm:pr-6">
-                    <a href="#" class="text-blue-600 hover:text-blue-900">Edit</a>
-                    <span class="text-gray-300 mx-1">|</span>
-                    <a href="#" class="text-red-600 hover:text-red-900">Cancel</a>
-                  </td>
-                </tr>
-              </template>
-              </tbody>
-            </table>
-          </div>
+                                    </td>
+                                    <td class="relative whitespace-nowrap py-4 pl-3 pr-4 text-right text-sm font-medium sm:pr-6">
+                                        <a href="#" class="text-blue-600 hover:text-blue-900">Edit</a>
+                                        <span class="text-gray-300 mx-1">|</span>
+                                        <a href="#" class="text-red-600 hover:text-red-900">Cancel</a>
+                                    </td>
+                                </tr>
+                            </template>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
         </div>
-      </div>
     </div>
-  </div>
 
-  <!-- Quick Actions Section -->
-  <div class="mt-10 px-4 sm:px-0">
-    <h2 class="text-xl font-semibold text-gray-900">Quick Actions</h2>
-    <div class="mt-4 grid grid-cols-1 gap-5 sm:grid-cols-2 lg:grid-cols-3">
-      <!-- Action Card 1 -->
-      <a href="#" class="block bg-white p-6 rounded-lg shadow hover:shadow-md transition-shadow duration-300">
-        <div class="flex items-center">
-          <div class="flex-shrink-0 bg-blue-100 rounded-md p-3">
-            <svg class="h-6 w-6 text-blue-600" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6v6m0 0v6m0-6h6m-6 0H6" />
-            </svg>
-          </div>
-          <div class="ml-4">
-            <h3 class="text-lg font-medium text-gray-900">Create New Appointment</h3>
-            <p class="text-sm text-gray-500">Add a new appointment to your calendar</p>
-          </div>
-        </div>
-      </a>
+    <!-- Quick Actions Section -->
+    <div class="mt-10 px-4 sm:px-0">
+        <h2 class="text-xl font-semibold text-gray-900">Quick Actions</h2>
+        <div class="mt-4 grid grid-cols-1 gap-5 sm:grid-cols-2 lg:grid-cols-3">
+            <!-- Action Card 1 -->
+            <a href="#" class="block bg-white p-6 rounded-lg shadow hover:shadow-md transition-shadow duration-300">
+                <div class="flex items-center">
+                    <div class="flex-shrink-0 bg-blue-100 rounded-md p-3">
+                        <svg class="h-6 w-6 text-blue-600" xmlns="http://www.w3.org/2000/svg" fill="none"
+                             viewBox="0 0 24 24" stroke="currentColor">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                  d="M12 6v6m0 0v6m0-6h6m-6 0H6"/>
+                        </svg>
+                    </div>
+                    <div class="ml-4">
+                        <h3 class="text-lg font-medium text-gray-900">Create New Appointment</h3>
+                        <p class="text-sm text-gray-500">Add a new appointment to your calendar</p>
+                    </div>
+                </div>
+            </a>
 
-      <!-- Action Card 2 -->
-      <a href="#" class="block bg-white p-6 rounded-lg shadow hover:shadow-md transition-shadow duration-300">
-        <div class="flex items-center">
-          <div class="flex-shrink-0 bg-green-100 rounded-md p-3">
-            <svg class="h-6 w-6 text-green-600" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" />
-            </svg>
-          </div>
-          <div class="ml-4">
-            <h3 class="text-lg font-medium text-gray-900">View Monthly Report</h3>
-            <p class="text-sm text-gray-500">See your business performance metrics</p>
-          </div>
-        </div>
-      </a>
+            <!-- Action Card 2 -->
+            <a href="#" class="block bg-white p-6 rounded-lg shadow hover:shadow-md transition-shadow duration-300">
+                <div class="flex items-center">
+                    <div class="flex-shrink-0 bg-green-100 rounded-md p-3">
+                        <svg class="h-6 w-6 text-green-600" xmlns="http://www.w3.org/2000/svg" fill="none"
+                             viewBox="0 0 24 24" stroke="currentColor">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                  d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"/>
+                        </svg>
+                    </div>
+                    <div class="ml-4">
+                        <h3 class="text-lg font-medium text-gray-900">View Monthly Report</h3>
+                        <p class="text-sm text-gray-500">See your business performance metrics</p>
+                    </div>
+                </div>
+            </a>
 
-      <!-- Action Card 3 -->
-      <a href="#" class="block bg-white p-6 rounded-lg shadow hover:shadow-md transition-shadow duration-300">
-        <div class="flex items-center">
-          <div class="flex-shrink-0 bg-purple-100 rounded-md p-3">
-            <svg class="h-6 w-6 text-purple-600" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10.325 4.317c.426-1.756 2.924-1.756 3.35 0a1.724 1.724 0 002.573 1.066c1.543-.94 3.31.826 2.37 2.37a1.724 1.724 0 001.065 2.572c1.756.426 1.756 2.924 0 3.35a1.724 1.724 0 00-1.066 2.573c.94 1.543-.826 3.31-2.37 2.37a1.724 1.724 0 00-2.572 1.065c-.426 1.756-2.924 1.756-3.35 0a1.724 1.724 0 00-2.573-1.066c-1.543.94-3.31-.826-2.37-2.37a1.724 1.724 0 00-1.065-2.572c-1.756-.426-1.756-2.924 0-3.35a1.724 1.724 0 001.066-2.573c-.94-1.543.826-3.31 2.37-2.37.996.608 2.296.07 2.572-1.065z" />
-              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" />
-            </svg>
-          </div>
-          <div class="ml-4">
-            <h3 class="text-lg font-medium text-gray-900">Manage Settings</h3>
-            <p class="text-sm text-gray-500">Update your business profile and preferences</p>
-          </div>
+            <!-- Action Card 3 -->
+            <a href="#" class="block bg-white p-6 rounded-lg shadow hover:shadow-md transition-shadow duration-300">
+                <div class="flex items-center">
+                    <div class="flex-shrink-0 bg-purple-100 rounded-md p-3">
+                        <svg class="h-6 w-6 text-purple-600" xmlns="http://www.w3.org/2000/svg" fill="none"
+                             viewBox="0 0 24 24" stroke="currentColor">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                  d="M10.325 4.317c.426-1.756 2.924-1.756 3.35 0a1.724 1.724 0 002.573 1.066c1.543-.94 3.31.826 2.37 2.37a1.724 1.724 0 001.065 2.572c1.756.426 1.756 2.924 0 3.35a1.724 1.724 0 00-1.066 2.573c.94 1.543-.826 3.31-2.37 2.37a1.724 1.724 0 00-2.572 1.065c-.426 1.756-2.924 1.756-3.35 0a1.724 1.724 0 00-2.573-1.066c-1.543.94-3.31-.826-2.37-2.37a1.724 1.724 0 00-1.065-2.572c-1.756-.426-1.756-2.924 0-3.35a1.724 1.724 0 001.066-2.573c-.94-1.543.826-3.31 2.37-2.37.996.608 2.296.07 2.572-1.065z"/>
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                  d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"/>
+                        </svg>
+                    </div>
+                    <div class="ml-4">
+                        <h3 class="text-lg font-medium text-gray-900">Manage Settings</h3>
+                        <p class="text-sm text-gray-500">Update your business profile and preferences</p>
+                    </div>
+                </div>
+            </a>
         </div>
-      </a>
     </div>
-  </div>
 </main>
 
 <!-- Footer -->
 <footer class="bg-white mt-12">
-  <div class="max-w-7xl mx-auto py-6 px-4 overflow-hidden sm:px-6 lg:px-8">
-    <p class="text-center text-sm text-gray-500">
-      &copy; 2023 AppointEase. All rights reserved.
-    </p>
-  </div>
+    <div class="max-w-7xl mx-auto py-6 px-4 overflow-hidden sm:px-6 lg:px-8">
+        <p class="text-center text-sm text-gray-500">
+            &copy; 2023 AppointEase. All rights reserved.
+        </p>
+    </div>
 </footer>
 
 <script>
-  function appointmentsData() {
-    return {
-      appointments: [],
-      loading: true,
-      error: null,
-      
-      init() {
-        this.fetchAppointments();
-      },
-      
-      async fetchAppointments() {
-        try {
-          const response = await fetch('https://appointment-scheduler-backend-zyhu.onrender.com/appointments');
-          
-          if (!response.ok) {
-            throw new Error('Failed to fetch appointments');
-          }
-          
-          const data = await response.json();
-          this.appointments = data;
-          this.loading = false;
-        } catch (err) {
-          this.error = 'Error loading appointments: ' + err.message;
-          this.loading = false;
-          console.error('Error fetching appointments:', err);
-        }
-      },
-      
-      formatDate(dateString) {
-        const date = new Date(dateString);
-        return date.toLocaleDateString('en-US', { 
-          year: 'numeric', 
-          month: 'short', 
-          day: 'numeric' 
-        });
-      },
-      
-      formatTime(dateString) {
-        const date = new Date(dateString);
-        return date.toLocaleTimeString('en-US', { 
-          hour: '2-digit', 
-          minute: '2-digit',
-          hour12: true 
-        });
-      },
-      
-      getClientName(appointment) {
-        if (appointment.clients) {
-          return `${appointment.clients.first_name} ${appointment.clients.last_name}`;
-        }
-        return 'Unknown Client';
-      },
-      
-      getStatusClass(status) {
-        switch (status?.toLowerCase()) {
-          case 'scheduled':
-          case 'confirmed':
-            return 'bg-green-100 text-green-800';
-          case 'cancelled':
-            return 'bg-red-100 text-red-800';
-          case 'completed':
-            return 'bg-blue-100 text-blue-800';
-          case 'pending':
-            return 'bg-yellow-100 text-yellow-800';
-          default:
-            return 'bg-gray-100 text-gray-800';
-        }
-      },
-      
-      capitalizeFirstLetter(string) {
-        if (!string) return '';
-        return string.charAt(0).toUpperCase() + string.slice(1);
-      }
-    };
-  }
+    function appointmentsData() {
+        return {
+            appointments: [],
+            loading: true,
+            error: null,
 
-  function dashboardStats() {
-    return {
-      totalAppointments: 0,
-      todayAppointments: 0,
-      uniqueClients: 0,
-      totalRevenue: 0,
-      
-      init() {
-        this.fetchStats();
-      },
-      
-      async fetchStats() {
-        try {
-          const response = await fetch('https://appointment-scheduler-backend-andrew2.onrender.com/appointments');
-          
-          if (!response.ok) {
-            throw new Error('Failed to fetch appointments');
-          }
-          
-          const appointments = await response.json();
-          
-          // Calculate total appointments
-          this.totalAppointments = appointments.length;
-          
-          // Calculate today's appointments
-          const today = new Date().toISOString().split('T')[0];
-          this.todayAppointments = appointments.filter(apt => {
-            const appointmentDate = new Date(apt.start_time).toISOString().split('T')[0];
-            return appointmentDate === today;
-          }).length;
-          
-          // Calculate unique clients
-          const clientIds = new Set();
-          appointments.forEach(apt => {
-            if (apt.client_id) {
-              clientIds.add(apt.client_id);
+            init() {
+                this.fetchAppointments();
+
+                // Listen for refresh event
+                window.addEventListener('refresh-appointments', () => {
+                    this.fetchAppointments();
+                });
+            },
+
+            async fetchAppointments() {
+                try {
+                    const response = await fetch('https://appointment-scheduler-backend-zyhu.onrender.com/appointments');
+
+                    if (!response.ok) {
+                        throw new Error('Failed to fetch appointments');
+                    }
+
+                    const data = await response.json();
+                    this.appointments = data;
+                    this.loading = false;
+                } catch (err) {
+                    this.error = 'Error loading appointments: ' + err.message;
+                    this.loading = false;
+                    console.error('Error fetching appointments:', err);
+                }
+            },
+
+            formatDate(dateString) {
+                const date = new Date(dateString);
+                return date.toLocaleDateString('en-US', {
+                    year: 'numeric',
+                    month: 'short',
+                    day: 'numeric'
+                });
+            },
+
+            formatTime(dateString) {
+                const date = new Date(dateString);
+                return date.toLocaleTimeString('en-US', {
+                    hour: '2-digit',
+                    minute: '2-digit',
+                    hour12: true
+                });
+            },
+
+            getClientName(appointment) {
+                if (appointment.clients) {
+                    return `${appointment.clients.first_name} ${appointment.clients.last_name}`;
+                }
+                return 'Unknown Client';
+            },
+
+            getStatusClass(status) {
+                switch (status?.toLowerCase()) {
+                    case 'scheduled':
+                    case 'confirmed':
+                        return 'bg-green-100 text-green-800';
+                    case 'cancelled':
+                        return 'bg-red-100 text-red-800';
+                    case 'completed':
+                        return 'bg-blue-100 text-blue-800';
+                    case 'pending':
+                        return 'bg-yellow-100 text-yellow-800';
+                    default:
+                        return 'bg-gray-100 text-gray-800';
+                }
+            },
+
+            capitalizeFirstLetter(string) {
+                if (!string) return '';
+                return string.charAt(0).toUpperCase() + string.slice(1);
             }
-          });
-          this.uniqueClients = clientIds.size;
-          
-          // Calculate total revenue (sum of service prices)
-          this.totalRevenue = appointments.reduce((total, apt) => {
-            return total + (apt.services?.price || 0);
-          }, 0);
-          
-        } catch (err) {
-          console.error('Error fetching stats:', err);
-        }
-      }
-    };
-  }
+        };
+    }
+
+    function dashboardStats() {
+        return {
+            totalAppointments: 0,
+            todayAppointments: 0,
+            uniqueClients: 0,
+            totalRevenue: 0,
+
+            init() {
+                this.fetchStats();
+            },
+
+            async fetchStats() {
+                try {
+                    const response = await fetch('https://appointment-scheduler-backend-andrew2.onrender.com/appointments');
+
+                    if (!response.ok) {
+                        throw new Error('Failed to fetch appointments');
+                    }
+
+                    const appointments = await response.json();
+
+                    // Calculate total appointments
+                    this.totalAppointments = appointments.length;
+
+                    // Calculate today's appointments
+                    const today = new Date().toISOString().split('T')[0];
+                    this.todayAppointments = appointments.filter(apt => {
+                        const appointmentDate = new Date(apt.start_time).toISOString().split('T')[0];
+                        return appointmentDate === today;
+                    }).length;
+
+                    // Calculate unique clients
+                    const clientIds = new Set();
+                    appointments.forEach(apt => {
+                        if (apt.client_id) {
+                            clientIds.add(apt.client_id);
+                        }
+                    });
+                    this.uniqueClients = clientIds.size;
+
+                    // Calculate total revenue (sum of service prices)
+                    this.totalRevenue = appointments.reduce((total, apt) => {
+                        return total + (apt.services?.price || 0);
+                    }, 0);
+
+                } catch (err) {
+                    console.error('Error fetching stats:', err);
+                }
+            }
+        };
+    }
+
+    function appointmentModal() {
+        return {
+            isOpen: false,
+            selectedService: null,
+            clients: [],
+            services: [],
+            formData: {
+                client_id: '',
+                service_id: '',
+                date: '',
+                time: '',
+                notes: ''
+            },
+
+            init() {
+                // Listen for open modal event
+                this.$watch('isOpen', (value) => {
+                    if (value) {
+                        this.loadClientsAndServices();
+                    }
+                });
+
+                this.$el.addEventListener('open-appointment-modal', () => {
+                    this.isOpen = true;
+                });
+            },
+
+            async loadClientsAndServices() {
+                try {
+                    // Fetch clients
+                    const clientsResponse = await fetch('https://appointment-scheduler-backend-zyhu.onrender.com/clients', {
+                            headers: {
+                                'Content-Type': 'application/json',
+                                'Authorization': 'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImZmYW5kYXVpbWViaGtiZm94aWRjIiwicm9sZSI6InNlcnZpY2Vfcm9sZSIsImlhdCI6MTc0NjE5OTAzMCwiZXhwIjoyMDYxNzc1MDMwfQ.6frO6PL5zVN2Tw-sa0wBXdOS7sYtwcFTC5pxRC3fawk',
+                                'apikey': 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImZmYW5kYXVpbWViaGtiZm94aWRjIiwicm9sZSI6InNlcnZpY2Vfcm9sZSIsImlhdCI6MTc0NjE5OTAzMCwiZXhwIjoyMDYxNzc1MDMwfQ.6frO6PL5zVN2Tw-sa0wBXdOS7sYtwcFTC5pxRC3fawk',
+                            }
+                        }
+                    );
+                    if (!clientsResponse.ok) throw new Error('Failed to fetch clients');
+                    this.clients = await clientsResponse.json();
+
+                    // Fetch services
+                    const servicesResponse = await fetch('https://appointment-scheduler-backend-zyhu.onrender.com/services', {
+                        headers: {
+                            'Content-Type': 'application/json',
+                            'Authorization': 'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImZmYW5kYXVpbWViaGtiZm94aWRjIiwicm9sZSI6InNlcnZpY2Vfcm9sZSIsImlhdCI6MTc0NjE5OTAzMCwiZXhwIjoyMDYxNzc1MDMwfQ.6frO6PL5zVN2Tw-sa0wBXdOS7sYtwcFTC5pxRC3fawk',
+                            'apikey': 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImZmYW5kYXVpbWViaGtiZm94aWRjIiwicm9sZSI6InNlcnZpY2Vfcm9sZSIsImlhdCI6MTc0NjE5OTAzMCwiZXhwIjoyMDYxNzc1MDMwfQ.6frO6PL5zVN2Tw-sa0wBXdOS7sYtwcFTC5pxRC3fawk',
+                        }
+                    });
+                    if (!servicesResponse.ok) throw new Error('Failed to fetch services');
+                    this.services = await servicesResponse.json();
+                } catch (err) {
+                    console.error('Error loading data for appointment modal:', err);
+                }
+            },
+
+            updateServiceDetails() {
+                if (this.formData.service_id) {
+                    this.selectedService = this.services.find(
+                        service => service.service_id === this.formData.service_id
+                    );
+                } else {
+                    this.selectedService = null;
+                }
+            },
+
+            async submitForm() {
+                try {
+                    // Combine date and time into a datetime string
+                    const dateTime = `${this.formData.date}T${this.formData.time}:00`;
+
+                    // Calculate end time based on service duration
+                    let endTime = null;
+                    if (this.selectedService) {
+                        const startDateTime = new Date(dateTime);
+                        const endDateTime = new Date(startDateTime.getTime() + this.selectedService.duration * 60000);
+                        endTime = endDateTime.toISOString();
+                    }
+
+                    const appointmentData = {
+                        client_id: this.formData.client_id,
+                        service_id: this.formData.service_id,
+                        start_time: dateTime,
+                        end_time: endTime,
+                        status: 'scheduled',
+                        notes: this.formData.notes
+                    };
+
+                    const response = await fetch('https://appointment-scheduler-backend-zyhu.onrender.com/appointments', {
+                        method: 'POST',
+                        headers: {
+                            'Content-Type': 'application/json'
+                        },
+                        body: JSON.stringify(appointmentData)
+                    });
+
+                    if (!response.ok) {
+                        throw new Error('Failed to create appointment');
+                    }
+
+                    // Close modal and refresh appointments list
+                    this.isOpen = false;
+                    this.resetForm();
+                    window.dispatchEvent(new CustomEvent('refresh-appointments'));
+
+                } catch (err) {
+                    console.error('Error creating appointment:', err);
+                }
+            },
+
+            resetForm() {
+                this.formData = {
+                    client_id: '',
+                    service_id: '',
+                    date: '',
+                    time: '',
+                    notes: ''
+                };
+                this.selectedService = null;
+            },
+
+            closeModal() {
+                this.isOpen = false;
+                this.resetForm();
+            }
+        };
+    }
 </script>
-</body>
-</html>
-</body>
-</html>
+<!-- Add this right before the closing </body> tag -->
+
+<!-- Appointment Modal -->
+<div id="appointmentModal" x-data="appointmentModal()" x-show="isOpen" class="fixed inset-0 z-10 overflow-y-auto"
+     x-cloak>
+    <div class="flex items-center justify-center min-h-screen pt-4 px-4 pb-20 text-center sm:block sm:p-0">
+        <!-- Background overlay -->
+        <div class="fixed inset-0 transition-opacity" aria-hidden="true" x-show="isOpen"
+             x-transition:enter="ease-out duration-300" x-transition:enter-start="opacity-0"
+             x-transition:enter-end="opacity-100" x-transition:leave="ease-in duration-200"
+             x-transition:leave-start="opacity-100" x-transition:leave-end="opacity-0">
+            <div class="absolute inset-0 bg-gray-500 opacity-75"></div>
+        </div>
+
+        <!-- Modal panel -->
+        <div class="inline-block align-bottom bg-white rounded-lg text-left overflow-hidden shadow-xl transform transition-all sm:my-8 sm:align-middle sm:max-w-lg sm:w-full"
+             x-show="isOpen" x-transition:enter="ease-out duration-300"
+             x-transition:enter-start="opacity-0 translate-y-4 sm:translate-y-0 sm:scale-95"
+             x-transition:enter-end="opacity-100 translate-y-0 sm:scale-100" x-transition:leave="ease-in duration-200"
+             x-transition:leave-start="opacity-100 translate-y-0 sm:scale-100"
+             x-transition:leave-end="opacity-0 translate-y-4 sm:translate-y-0 sm:scale-95">
+            <div class="bg-white px-4 pt-5 pb-4 sm:p-6 sm:pb-4">
+                <div class="sm:flex sm:items-start">
+                    <div class="mt-3 text-center sm:mt-0 sm:ml-4 sm:text-left w-full">
+                        <h3 class="text-lg leading-6 font-medium text-gray-900" id="modal-title">
+                            Add New Appointment
+                        </h3>
+                        <div class="mt-4">
+                            <form @submit.prevent="submitForm">
+                                <!-- Client selection -->
+                                <div class="mb-4">
+                                    <label for="client" class="block text-sm font-medium text-gray-700">Client</label>
+                                    <select id="client" x-model="formData.client_id"
+                                            class="mt-1 block w-full py-2 px-3 border border-gray-300 bg-white rounded-md shadow-sm focus:outline-none focus:ring-blue-500 focus:border-blue-500 sm:text-sm"
+                                            required>
+                                        <option value="" disabled selected>Select a client</option>
+                                        <template x-for="client in clients" :key="client.client_id">
+                                            <option :value="client.client_id"
+                                                    x-text="`${client.first_name} ${client.last_name}`"></option>
+                                        </template>
+                                    </select>
+                                </div>
+
+                                <!-- Service selection -->
+                                <div class="mb-4">
+                                    <label for="service" class="block text-sm font-medium text-gray-700">Service</label>
+                                    <select id="service" x-model="formData.service_id" @change="updateServiceDetails"
+                                            class="mt-1 block w-full py-2 px-3 border border-gray-300 bg-white rounded-md shadow-sm focus:outline-none focus:ring-blue-500 focus:border-blue-500 sm:text-sm"
+                                            required>
+                                        <option value="" disabled selected>Select a service</option>
+                                        <template x-for="service in services" :key="service.service_id">
+                                            <option :value="service.service_id" x-text="service.name"></option>
+                                        </template>
+                                    </select>
+                                </div>
+
+                                <!-- Service details (displayed when service is selected) -->
+                                <div class="mb-4 p-3 bg-gray-50 rounded-md" x-show="selectedService">
+                                    <div class="flex justify-between">
+                                        <span class="text-sm text-gray-500">Duration:</span>
+                                        <span class="text-sm font-medium"
+                                              x-text="selectedService ? `${selectedService.duration} minutes` : ''"></span>
+                                    </div>
+                                    <div class="flex justify-between mt-1">
+                                        <span class="text-sm text-gray-500">Price:</span>
+                                        <span class="text-sm font-medium"
+                                              x-text="selectedService ? `$${selectedService.price.toFixed(2)}` : ''"></span>
+                                    </div>
+                                </div>
+
+                                <!-- Date and time -->
+                                <div class="grid grid-cols-2 gap-4 mb-4">
+                                    <div>
+                                        <label for="date" class="block text-sm font-medium text-gray-700">Date</label>
+                                        <input type="date" id="date" x-model="formData.date" class="mt-1 block w-full py-2 px-3 border border-gray-300 bg-white rounded
