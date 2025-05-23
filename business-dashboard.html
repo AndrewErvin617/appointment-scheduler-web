@@ -306,19 +306,19 @@
       appointments: [],
       loading: true,
       error: null,
-      
+
       init() {
         this.fetchAppointments();
       },
-      
+
       async fetchAppointments() {
         try {
           const response = await fetch('https://appointment-scheduler-backend-zyhu.onrender.com/appointments');
-          
+
           if (!response.ok) {
             throw new Error('Failed to fetch appointments');
           }
-          
+
           const data = await response.json();
           this.appointments = data;
           this.loading = false;
@@ -328,32 +328,32 @@
           console.error('Error fetching appointments:', err);
         }
       },
-      
+
       formatDate(dateString) {
         const date = new Date(dateString);
-        return date.toLocaleDateString('en-US', { 
-          year: 'numeric', 
-          month: 'short', 
-          day: 'numeric' 
+        return date.toLocaleDateString('en-US', {
+          year: 'numeric',
+          month: 'short',
+          day: 'numeric'
         });
       },
-      
+
       formatTime(dateString) {
         const date = new Date(dateString);
-        return date.toLocaleTimeString('en-US', { 
-          hour: '2-digit', 
+        return date.toLocaleTimeString('en-US', {
+          hour: '2-digit',
           minute: '2-digit',
-          hour12: true 
+          hour12: true
         });
       },
-      
+
       getClientName(appointment) {
         if (appointment.clients) {
           return `${appointment.clients.first_name} ${appointment.clients.last_name}`;
         }
         return 'Unknown Client';
       },
-      
+
       getStatusClass(status) {
         switch (status?.toLowerCase()) {
           case 'scheduled':
@@ -369,7 +369,7 @@
             return 'bg-gray-100 text-gray-800';
         }
       },
-      
+
       capitalizeFirstLetter(string) {
         if (!string) return '';
         return string.charAt(0).toUpperCase() + string.slice(1);
@@ -383,31 +383,31 @@
       todayAppointments: 0,
       uniqueClients: 0,
       totalRevenue: 0,
-      
+
       init() {
         this.fetchStats();
       },
-      
+
       async fetchStats() {
         try {
-          const response = await fetch('https://appointment-scheduler-backend-andrew2.onrender.com/appointments');
-          
+          const response = await fetch('https://appointment-scheduler-backend-zyhu.onrender.com/appointments');
+
           if (!response.ok) {
             throw new Error('Failed to fetch appointments');
           }
-          
+
           const appointments = await response.json();
-          
+
           // Calculate total appointments
           this.totalAppointments = appointments.length;
-          
+
           // Calculate today's appointments
           const today = new Date().toISOString().split('T')[0];
           this.todayAppointments = appointments.filter(apt => {
             const appointmentDate = new Date(apt.start_time).toISOString().split('T')[0];
             return appointmentDate === today;
           }).length;
-          
+
           // Calculate unique clients
           const clientIds = new Set();
           appointments.forEach(apt => {
@@ -416,12 +416,12 @@
             }
           });
           this.uniqueClients = clientIds.size;
-          
+
           // Calculate total revenue (sum of service prices)
           this.totalRevenue = appointments.reduce((total, apt) => {
             return total + (apt.services?.price || 0);
           }, 0);
-          
+
         } catch (err) {
           console.error('Error fetching stats:', err);
         }
